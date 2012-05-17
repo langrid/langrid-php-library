@@ -1,0 +1,11 @@
+id, name, licenser, parallel_text_records_count, created_by, updated_by, user_read, user_write, any_read, any_write, delete_flag
+1, "test_dict", "", 0, 1, 1, 1, 1, 1, 1, 0
+2, "sample_dict", "", 0, 2, 1, 1, 1, 0, 0, 0
+3, "a test_dict_for_remove", "", 0, 3, 1, 1, 1, 1, 0, 0
+4, "b test_dict_for_remove_force", "", 0, 4, 1, 1, 1, 0, 1, 0
+5, "c test_remove_language", "", 0, 1, 1, 1, 1, 1, 1, 0
+6, "d test_remove_language_force", "", 0, 1, 1, 1, 1, 1, 1, 0
+7, "e test_update_languages", "", 0, 1, 1, 1, 1, 1, 1, 0
+8, "f test_update_languages_force", "", 0, 1, 1, 1, 1, 1, 1, 0
+9, "g test_dict_deleted", "", 0, 1, 1, 1, 1, 1, 1, 1
+10, "h test_dict_deleted", "", 0, 1, 1, 1, 1, 1, 1, 1
