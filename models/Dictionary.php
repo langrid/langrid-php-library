@@ -7,8 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require_once dirname(__FILE__).'/MLSModel.php';
-require_once dirname(__FILE__).'/MLSModel.php';
+require_once dirname(__FILE__) . '/MLSModel.php';
+require_once dirname(__FILE__) . '/MLSModel.php';
 
 class Dictionary extends MLSModel
 {
@@ -26,24 +26,27 @@ class Dictionary extends MLSModel
 
     static $after_destroy = array('delete_related_datas');
 
-    static protected function get_resource_name(){
+    static protected function get_resource_name()
+    {
         return ActiveRecord\Inflector::instance()->uncamelize(get_called_class());
     }
 
-    function delete_related_datas() {
-        call_user_func( get_class($this).'Language::delete_all', array(
-            'conditions' => array(self::get_resource_name().'_id' => $this->read_attribute('id'))
+    function delete_related_datas()
+    {
+        call_user_func(get_class($this) . 'Language::delete_all', array(
+            'conditions' => array(self::get_resource_name() . '_id' => $this->read_attribute('id'))
         ));
-        call_user_func( get_class($this).'Deployment::delete_all', array(
-            'conditions' => array(self::get_resource_name().'_id' => $this->read_attribute('id'))
+        call_user_func(get_class($this) . 'Deployment::delete_all', array(
+            'conditions' => array(self::get_resource_name() . '_id' => $this->read_attribute('id'))
         ));
-        call_user_func( get_class($this).'Record::delete_all', array(
-            'conditions' => array(self::get_resource_name().'_id' => $this->read_attribute('id'))
+        call_user_func(get_class($this) . 'Record::delete_all', array(
+            'conditions' => array(self::get_resource_name() . '_id' => $this->read_attribute('id'))
         ));
     }
 
-    function remove($force = false) {
-        if($force) {
+    function remove($force = false)
+    {
+        if ($force) {
             $this->delete();
         } else {
             $this->delete_flag = true;
@@ -51,28 +54,32 @@ class Dictionary extends MLSModel
         }
     }
 
-    function add_language(Language $language){
+    function add_language(Language $language)
+    {
         $class_name = self::get_resource_name();
-        $created_language = call_user_func(array($this, 'create_'.$class_name.'_languages'), array('language' => $language->getTag()));
-        if($created_language->is_invalid()) MLSException::create($created_language->errors->on('language'));
+        $created_language = call_user_func(array($this, 'create_' . $class_name . '_languages'), array('language' => $language->getTag()));
+        if ($created_language->is_invalid()) MLSException::create($created_language->errors->on('language'));
         return $created_language;
     }
 
-    function get_languages(){
-        return array_map(function($lang){
+    function get_languages()
+    {
+        return array_map(function($lang)
+        {
             return $lang->language;
         }, $this->read_attribute('languages'));
     }
 
-    function remove_language(Language $language, $force = false) {
-        foreach($this->read_attribute('languages') as $exist_language) {
-            if($exist_language->language == $language) {
+    function remove_language(Language $language, $force = false)
+    {
+        foreach ($this->read_attribute('languages') as $exist_language) {
+            if ($exist_language->language == $language) {
                 $exist_language->delete();
             }
         }
 
-        if($force) {
-            $contentClass = get_class($this).'Content';
+        if ($force) {
+            $contentClass = get_class($this) . 'Content';
             $contentClass::delete_all_by_resource_id_and_language($this->id, $language);
         }
         $this->reload();
@@ -82,32 +89,36 @@ class Dictionary extends MLSModel
     /*
      * $languages: (array<string>) [array of language code
      */
-    function update_languages(array $languages = array(), $force_on_delete = false) {
-        if(!$languages || count($languages) <= 1) {
+    function update_languages(array $languages = array(), $force_on_delete = false)
+    {
+        if (!$languages || count($languages) <= 1) {
             MLSException::create('languages need more than 2 language');
         }
         $creates = array_diff($languages, $this->get_languages());
-        foreach($creates as $l) {
+        foreach ($creates as $l) {
             $this->add_language(Language::get($l));
         }
 
         $deletes = array_diff($this->get_languages(), $languages);
-        foreach($deletes as $l) {
+        foreach ($deletes as $l) {
             $this->remove_language(Language::get($l), $force_on_delete);
         }
         return true;
     }
 
-    function is_deploy() {
+    function is_deploy()
+    {
         return $this->read_attribute('deployment') != null;
     }
-    
-    function deploy(){
-        call_user_func(array($this, 'create_'.self::get_resource_name().'_deployment'));
+
+    function deploy()
+    {
+        call_user_func(array($this, 'create_' . self::get_resource_name() . '_deployment'));
     }
 
-    function undeploy(){
-        if($this->is_deploy()) {
+    function undeploy()
+    {
+        if ($this->is_deploy()) {
             $this->read_attribute('deployment')->delete();
             $this->reload();
         }
@@ -117,51 +128,108 @@ class Dictionary extends MLSModel
      * $params: (array<string, string>) {language => value}
      * $create_user: create user ID
      */
-    function add_record($params = array(), $create_user = null) {
+    function add_record($params = array(), $create_user = null)
+    {
         $class_name = ActiveRecord\Inflector::instance()->uncamelize(get_class($this));
-        $new_record = call_user_func(array($this, 'create_'.$class_name.'_records'), array());
+        $new_record = call_user_func(array($this, 'create_' . $class_name . '_records'), array());
         $new_record->update_contents($params, $create_user);
         return $new_record;
     }
 
-    function records_count(){
-        return call_user_func( get_class($this).'Record::count_by_'.self::get_resource_name().'_id', $this->id);
+    function records_count()
+    {
+        return call_user_func(get_class($this) . 'Record::count_by_' . self::get_resource_name() . '_id', $this->id);
     }
 
-    function get_records(/* ... */) {
+    //2012-05-22 nkjm add
+    public function search($headLang, $targetLang, $headWord, $matchingMethod)
+    {
+        $translations = array();
+        foreach ($this->get_records() as $record) {
+            $bilingualWordPair = $record->get_contents();
+
+            if ($this->isMatch($headLang, $targetLang, $headWord, $matchingMethod, $bilingualWordPair)) {
+                error_log("search result=".$bilingualWordPair[$headLang]);
+                array_push($translations, new Translation($bilingualWordPair[$headLang], array($bilingualWordPair[$targetLang])));
+            }
+        }
+        return $translations;
+    }
+
+    //2012-05-22 nkjm add
+    private function isMatch($headLang, $targetLang, $headWord, $matchingMethod, $bilingualWordPair)
+    {
+        if($bilingualWordPair[$targetLang]===""){
+            return false;
+        }
+        $upMatchingMethod = strtoupper($matchingMethod);
+        if ($upMatchingMethod === "COMPLETE") {
+            if($headWord === $bilingualWordPair[$headLang]){
+                return true;
+            }else{
+                return false;
+            }
+        } else if ($upMatchingMethod === "PARTIAL") {
+            return preg_match("/.*$headWord.*/i", $bilingualWordPair[$headLang]);
+        } else if ($upMatchingMethod === "PREFIX") {
+            return preg_match("/^$headWord.*/i", $bilingualWordPair[$headLang]);
+        } else if ($upMatchingMethod === "SUFFIX") {
+            return preg_match("/.*$headWord$/i", $bilingualWordPair[$headLang]);
+        } else if ($upMatchingMethod === "REGEXP") {
+            return preg_match("/$headWord/i", $bilingualWordPair[$headLang]);
+        } else {
+            // 本当はExceptionを投げる
+            if($headWord === $bilingualWordPair[$headLang]){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+
+    function get_records( /* ... */)
+    {
         $options = static::extract_and_validate_options(func_get_args());
-        if(!@$options['limit']) $options['limit'] = 10;
-        if(!@$options['offset']) $options['offset'] = 0;
-        return call_user_func_array( get_class($this).'Record::find_all_by_'.self::get_resource_name().'_id', array($this->id, $options));
+        if (!@$options['limit']) $options['limit'] = 10;
+        if (!@$options['offset']) $options['offset'] = 0;
+        return call_user_func_array(get_class($this) . 'Record::find_all_by_' . self::get_resource_name() . '_id', array($this->id, $options));
     }
 
-    function count_records_each_language(){
-        return call_user_func( get_class($this).'Record::count_by_resource_id_each_languages', $this->id);
+    function count_records_each_language()
+    {
+        return call_user_func(get_class($this) . 'Record::count_by_resource_id_each_languages', $this->id);
     }
 
-    function count_records_by_language(Language $language){
-        return call_user_func_array( get_class($this).'Record::count_by_resource_id_and_language', array($this->id, $language));
+    function count_records_by_language(Language $language)
+    {
+        return call_user_func_array(get_class($this) . 'Record::count_by_resource_id_and_language', array($this->id, $language));
     }
 
-    function can_view($user_id = null) {
+    function can_view($user_id = null)
+    {
         return $this->any_read == 1 || ($this->is_owner($user_id) && $this->user_read);
     }
 
-    function can_edit($user_id = null) {
+    function can_edit($user_id = null)
+    {
         return $this->any_write == 1 || ($this->is_owner($user_id) && $this->user_write);
     }
 
-    function is_owner($user_id = null) {
+    function is_owner($user_id = null)
+    {
         return $user_id && $this->created_by == $user_id;
     }
 
-    function to_json(array $options=array()){
-        $options = array_merge($options, array('except' => array('delete_flag','user_read','user_write','any_read','any_write')));
+    function to_json(array $options = array())
+    {
+        $options = array_merge($options, array('except' => array('delete_flag', 'user_read', 'user_write', 'any_read', 'any_write')));
         return parent::to_json($options);
     }
 
-    function to_xml(array $options=array()){
-        $options = array_merge($options, array('except' => array('delete_flag','user_read','user_write','any_read','any_write')));
+    function to_xml(array $options = array())
+    {
+        $options = array_merge($options, array('except' => array('delete_flag', 'user_read', 'user_write', 'any_read', 'any_write')));
         return parent::to_xml($options);
     }
 
@@ -185,12 +253,14 @@ class Dictionary extends MLSModel
      *      )
      * );
      */
-    static function create_with_records($params, $create_user = null){
+    static function create_with_records($params, $create_user = null)
+    {
         $dict = null;
 
         $className = get_called_class();
 
-        self::transaction(function() use ($params, $create_user, $className, &$dict){
+        self::transaction(function() use ($params, $create_user, $className, &$dict)
+        {
             $dict = $className::create(array(
                 'name' => $params['name'],
                 'licenser' => @$params['licenser'],
@@ -200,20 +270,20 @@ class Dictionary extends MLSModel
 
             $dict->update_languages($params['languages']);
 
-            foreach($params['records'] as $record) {
-                if(count($record) > count($params['languages'])) {
+            foreach ($params['records'] as $record) {
+                if (count($record) > count($params['languages'])) {
                     MLSException::create('record count is many than language count. do rollback.');
                 }
                 $i = 0;
                 $hash = array();
-                foreach($record as $word) {
+                foreach ($record as $word) {
                     $language = $params['languages'][$i++];
-                    if($word) {
+                    if ($word) {
                         $hash[$language] = $word;
                     }
                 }
 
-                if(count($hash)) {
+                if (count($hash)) {
                     $dict->add_record($hash, $create_user);
                 }
             }
@@ -221,49 +291,58 @@ class Dictionary extends MLSModel
         return $dict;
     }
 
-    public static function first() {
+    public static function first()
+    {
         $options = self::add_args_delete_flag_off(func_get_args());
-        return call_user_func_array('parent::'.__FUNCTION__, array($options));
+        return call_user_func_array('parent::' . __FUNCTION__, array($options));
     }
 
-    public static function last() {
+    public static function last()
+    {
         $options = self::add_args_delete_flag_off(func_get_args());
-        return call_user_func_array('parent::'.__FUNCTION__, array($options));
+        return call_user_func_array('parent::' . __FUNCTION__, array($options));
     }
 
-    public static function all(/* ... */) {
+    public static function all( /* ... */)
+    {
         $options = self::add_args_delete_flag_off(func_get_args());
-        return call_user_func_array('parent::'.__FUNCTION__, array($options));
+        return call_user_func_array('parent::' . __FUNCTION__, array($options));
     }
 
-    public static function count(/* ... */) {
+    public static function count( /* ... */)
+    {
         $options = self::add_args_delete_flag_off(func_get_args());
-        return call_user_func_array('parent::'.__FUNCTION__, array($options));
+        return call_user_func_array('parent::' . __FUNCTION__, array($options));
     }
 
-    public static function first_with_deleted() {
+    public static function first_with_deleted()
+    {
         return call_user_func_array('parent::first', func_get_args());
     }
 
-    public static function last_with_deleted() {
+    public static function last_with_deleted()
+    {
         return call_user_func_array('parent::last', func_get_args());
     }
 
-    public static function all_with_deleted(/* ... */) {
+    public static function all_with_deleted( /* ... */)
+    {
         return call_user_func_array('parent::all', func_get_args());
     }
 
-    public static function count_with_deleted(/* ... */) {
+    public static function count_with_deleted( /* ... */)
+    {
         return call_user_func_array('parent::count', func_get_args());
     }
 
-    protected static function add_args_delete_flag_off($options) {
+    protected static function add_args_delete_flag_off($options)
+    {
         $options = static::extract_and_validate_options($options);
         $conditions = @$options['conditions'];
-        if($conditions) {
-            if(is_string($conditions)) {
+        if ($conditions) {
+            if (is_string($conditions)) {
                 $conditions .= ' AND delete_flag = 0';
-            } else if(is_array($conditions)) {
+            } else if (is_array($conditions)) {
                 $conditions['delete_flag'] = 0;
 
             }
@@ -273,5 +352,13 @@ class Dictionary extends MLSModel
             $options['conditions'] = array('delete_flag' => 0);
         }
         return $options;
+    }
+
+    //2012-05-22 nkjm add
+    public static function getSupportedMatchingMethods()
+    {
+        return array(
+            'COMPLETE','PARTIAL', 'PREFIX', 'SUFFIX', 'REGEXP'
+        );
     }
 }

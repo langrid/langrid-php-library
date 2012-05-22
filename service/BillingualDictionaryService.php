@@ -5,6 +5,7 @@ require_once('SOAP/Type/dateTime.php');
 require_once (dirname(__FILE__) . '/../MultiLanguageStudio.php');
 require_once (dirname(__FILE__) . '/../commons/LanguagePair.php');
 require_once (dirname(__FILE__) . '/../commons/Translation.php');
+require_once (dirname(__FILE__) . '/../commons/SOAP/TranslationSOAP.php');
 
 class BillingualDictionarySOAPServer
 {
@@ -148,19 +149,9 @@ class BillingualDictionaryService
     }
 
     public function searchLongestMatchingTerms($headLang, $targetLang, $morphemes) {
-        $dictionary = Dictionary::find($this->dictionaryName);
+        // 2012-05-22 未実装
+       return $dictionary->searchLongestMatchingTerms($headLang, $targetLang, $morphemes);
 
-        // 2012-05-22
-        $translations = $dictionary->searchLongestMatchingTerms($headLang, $targetLang, $morphemes);
-
-        $soap_translations = array();
-        foreach($translations as $translation){
-            array_push($soap_translations, new SOAP_Value('searchReturn', 'searchReturn', $translation));
-        }
-
-        $result = new SOAP_Value('searchReturn', 'searchReturn', $soap_translations);
-
-        return $result;
     }
 
     public function search($headLang, $targetLang, $headWord, $matchingMethod)
@@ -176,15 +167,14 @@ class BillingualDictionaryService
 
         $soap_translations = array();
         foreach($translations as $translation){
-            array_push($soap_translations, new SOAP_Value('searchReturn', 'searchReturn', $translation));
+            array_push($soap_translations, new SOAP_Value('searchReturn', 'searchReturn', new TranslationSOAP($translation->getHeadWord(), $translation->getTargetWords())));
         }
 
         $result = new SOAP_Value('searchReturn', 'searchReturn', $soap_translations);
 
         return $result;
     }
-    
-
 }
+
 
 ?>
