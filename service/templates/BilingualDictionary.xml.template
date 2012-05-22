@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="${targetNamespace}" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="${targetNamespace}" xmlns:intf="${targetNamespace}" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://langrid.nict.go.jp/ws_1_2/" xmlns:tns2="http://langrid.nict.go.jp/ws_1_2/morphologicalanalysis/" xmlns:tns3="http://langrid.nict.go.jp/ws_1_2/bilingualdictionary/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <wsdl:types>
+  <schema targetNamespace="${targetNamespace}" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://langrid.nict.go.jp/ws_1_2/morphologicalanalysis/"/>
+   <import namespace="http://langrid.nict.go.jp/ws_1_2/"/>
+   <import namespace="http://langrid.nict.go.jp/ws_1_2/bilingualdictionary/"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_xsd_string">
+    <complexContent>
+
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_LanguagePair">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:LanguagePair[]"/>
+
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns2_Morpheme">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns2:Morpheme[]"/>
+     </restriction>
+    </complexContent>
+
+   </complexType>
+   <complexType name="ArrayOf_tns3_TranslationWithPosition">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns3:TranslationWithPosition[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns3_Translation">
+
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns3:Translation[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://langrid.nict.go.jp/ws_1_2/" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="${targetNamespace}"/>
+
+   <import namespace="http://langrid.nict.go.jp/ws_1_2/morphologicalanalysis/"/>
+   <import namespace="http://langrid.nict.go.jp/ws_1_2/bilingualdictionary/"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="LangridException">
+    <sequence>
+     <element name="description" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="AccessLimitExceededException">
+
+    <complexContent>
+     <extension base="tns1:LangridException">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="NoAccessPermissionException">
+    <complexContent>
+     <extension base="tns1:LangridException">
+
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="NoValidEndpointsException">
+    <complexContent>
+     <extension base="tns1:LangridException">
+      <sequence/>
+     </extension>
+
+    </complexContent>
+   </complexType>
+   <complexType name="ProcessFailedException">
+    <complexContent>
+     <extension base="tns1:LangridException">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+
+   <complexType name="ServerBusyException">
+    <complexContent>
+     <extension base="tns1:LangridException">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ServiceNotActiveException">
+    <complexContent>
+
+     <extension base="tns1:LangridException">
+      <sequence>
+       <element name="serviceId" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="ServiceNotFoundException">
+    <complexContent>
+
+     <extension base="tns1:LangridException">
+      <sequence>
+       <element name="serviceId" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="LanguagePair">
+    <sequence>
+
+     <element name="first" nillable="true" type="xsd:string"/>
+     <element name="second" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="InvalidParameterException">
+    <complexContent>
+     <extension base="tns1:LangridException">
+      <sequence>
+       <element name="parameterName" nillable="true" type="xsd:string"/>
+
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="UnsupportedLanguagePairException">
+    <complexContent>
+     <extension base="tns1:InvalidParameterException">
+      <sequence>
+       <element name="language1" nillable="true" type="xsd:string"/>
+
+       <element name="language2" nillable="true" type="xsd:string"/>
+       <element name="parameterName1" nillable="true" type="xsd:string"/>
+       <element name="parameterName2" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="LanguagePairNotUniquelyDecidedException">
+    <complexContent>
+
+     <extension base="tns1:InvalidParameterException">
+      <sequence>
+       <element name="candidates" nillable="true" type="impl:ArrayOf_xsd_string"/>
+       <element name="message" nillable="true" type="xsd:string"/>
+       <element name="parameterName1" nillable="true" type="xsd:string"/>
+       <element name="parameterName2" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+
+   </complexType>
+   <complexType name="UnsupportedMatchingMethodException">
+    <complexContent>
+     <extension base="tns1:InvalidParameterException">
+      <sequence>
+       <element name="matchingMethod" nillable="true" type="xsd:string"/>
+       <element name="validMethods" nillable="true" type="impl:ArrayOf_xsd_string"/>
+      </sequence>
+     </extension>
+
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://langrid.nict.go.jp/ws_1_2/morphologicalanalysis/" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="${targetNamespace}"/>
+   <import namespace="http://langrid.nict.go.jp/ws_1_2/"/>
+   <import namespace="http://langrid.nict.go.jp/ws_1_2/bilingualdictionary/"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="Morpheme">
+
+    <sequence>
+     <element name="lemma" nillable="true" type="xsd:string"/>
+     <element name="partOfSpeech" nillable="true" type="xsd:string"/>
+     <element name="word" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://langrid.nict.go.jp/ws_1_2/bilingualdictionary/" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="${targetNamespace}"/>
+
+   <import namespace="http://langrid.nict.go.jp/ws_1_2/morphologicalanalysis/"/>
+   <import namespace="http://langrid.nict.go.jp/ws_1_2/"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="Translation">
+    <sequence>
+     <element name="headWord" nillable="true" type="xsd:string"/>
+     <element name="targetWords" nillable="true" type="impl:ArrayOf_xsd_string"/>
+    </sequence>
+   </complexType>
+
+   <complexType name="TranslationWithPosition">
+    <sequence>
+     <element name="numberOfMorphemes" type="xsd:int"/>
+     <element name="startIndex" type="xsd:int"/>
+     <element name="translation" nillable="true" type="tns3:Translation"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getSupportedMatchingMethodsRequest">
+
+   </wsdl:message>
+
+   <wsdl:message name="searchLongestMatchingTermsResponse">
+
+      <wsdl:part name="searchLongestMatchingTermsReturn" type="impl:ArrayOf_tns3_TranslationWithPosition"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="NoAccessPermissionException">
+
+      <wsdl:part name="fault" type="tns1:NoAccessPermissionException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSupportedLanguagePairsResponse">
+
+      <wsdl:part name="getSupportedLanguagePairsReturn" type="impl:ArrayOf_tns1_LanguagePair"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ServerBusyException">
+
+      <wsdl:part name="fault" type="tns1:ServerBusyException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSupportedMatchingMethodsResponse">
+
+      <wsdl:part name="getSupportedMatchingMethodsReturn" type="impl:ArrayOf_xsd_string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ServiceNotActiveException">
+
+      <wsdl:part name="fault" type="tns1:ServiceNotActiveException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSupportedLanguagePairsRequest">
+
+   </wsdl:message>
+
+   <wsdl:message name="ServiceNotFoundException">
+
+      <wsdl:part name="fault" type="tns1:ServiceNotFoundException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getLastUpdateRequest">
+
+   </wsdl:message>
+
+   <wsdl:message name="UnsupportedMatchingMethodException">
+
+      <wsdl:part name="fault" type="tns1:UnsupportedMatchingMethodException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="searchRequest">
+
+      <wsdl:part name="headLang" type="xsd:string"/>
+
+      <wsdl:part name="targetLang" type="xsd:string"/>
+
+      <wsdl:part name="headWord" type="xsd:string"/>
+
+      <wsdl:part name="matchingMethod" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ProcessFailedException">
+
+      <wsdl:part name="fault" type="tns1:ProcessFailedException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="searchResponse">
+
+      <wsdl:part name="searchReturn" type="impl:ArrayOf_tns3_Translation"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getLastUpdateResponse">
+
+      <wsdl:part name="getLastUpdateReturn" type="xsd:dateTime"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="AccessLimitExceededException">
+
+      <wsdl:part name="fault" type="tns1:AccessLimitExceededException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="searchLongestMatchingTermsRequest">
+
+      <wsdl:part name="headLang" type="xsd:string"/>
+
+      <wsdl:part name="targetLang" type="xsd:string"/>
+
+      <wsdl:part name="morphemes" type="impl:ArrayOf_tns2_Morpheme"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="LanguagePairNotUniquelyDecidedException">
+
+      <wsdl:part name="fault" type="tns1:LanguagePairNotUniquelyDecidedException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="InvalidParameterException">
+
+      <wsdl:part name="fault" type="tns1:InvalidParameterException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="NoValidEndpointsException">
+
+      <wsdl:part name="fault" type="tns1:NoValidEndpointsException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="UnsupportedLanguagePairException">
+
+      <wsdl:part name="fault" type="tns1:UnsupportedLanguagePairException"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="BilingualDictionaryWithLongestMatchSearch">
+
+      <wsdl:operation name="getSupportedMatchingMethods">
+
+         <wsdl:input message="impl:getSupportedMatchingMethodsRequest" name="getSupportedMatchingMethodsRequest"/>
+
+         <wsdl:output message="impl:getSupportedMatchingMethodsResponse" name="getSupportedMatchingMethodsResponse"/>
+
+         <wsdl:fault message="impl:ServiceNotFoundException" name="ServiceNotFoundException"/>
+
+         <wsdl:fault message="impl:ServiceNotActiveException" name="ServiceNotActiveException"/>
+
+         <wsdl:fault message="impl:NoValidEndpointsException" name="NoValidEndpointsException"/>
+
+         <wsdl:fault message="impl:ServerBusyException" name="ServerBusyException"/>
+
+         <wsdl:fault message="impl:AccessLimitExceededException" name="AccessLimitExceededException"/>
+
+         <wsdl:fault message="impl:ProcessFailedException" name="ProcessFailedException"/>
+
+         <wsdl:fault message="impl:NoAccessPermissionException" name="NoAccessPermissionException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSupportedLanguagePairs">
+
+         <wsdl:input message="impl:getSupportedLanguagePairsRequest" name="getSupportedLanguagePairsRequest"/>
+
+         <wsdl:output message="impl:getSupportedLanguagePairsResponse" name="getSupportedLanguagePairsResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="searchLongestMatchingTerms" parameterOrder="headLang targetLang morpheme">
+
+         <wsdl:input message="impl:searchLongestMatchingTermsRequest" name="searchLongestMatchingTermsRequest"/>
+
+         <wsdl:output message="impl:searchLongestMatchingTermsResponse" name="searchLongestMatchingTermsResponse"/>
+
+         <wsdl:fault message="impl:UnsupportedLanguagePairException" name="UnsupportedLanguagePairException"/>
+
+         <wsdl:fault message="impl:ServiceNotFoundException" name="ServiceNotFoundException"/>
+
+         <wsdl:fault message="impl:ServiceNotActiveException" name="ServiceNotActiveException"/>
+
+         <wsdl:fault message="impl:NoValidEndpointsException" name="NoValidEndpointsException"/>
+
+         <wsdl:fault message="impl:LanguagePairNotUniquelyDecidedException" name="LanguagePairNotUniquelyDecidedException"/>
+
+         <wsdl:fault message="impl:InvalidParameterException" name="InvalidParameterException"/>
+
+         <wsdl:fault message="impl:ServerBusyException" name="ServerBusyException"/>
+
+         <wsdl:fault message="impl:AccessLimitExceededException" name="AccessLimitExceededException"/>
+
+         <wsdl:fault message="impl:ProcessFailedException" name="ProcessFailedException"/>
+
+         <wsdl:fault message="impl:NoAccessPermissionException" name="NoAccessPermissionException"/>
+
+         <wsdl:fault message="impl:UnsupportedMatchingMethodException" name="UnsupportedMatchingMethodException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="search" parameterOrder="headLang targetLang headWord matchingMethod">
+
+         <wsdl:input message="impl:searchRequest" name="searchRequest"/>
+
+         <wsdl:output message="impl:searchResponse" name="searchResponse"/>
+
+         <wsdl:fault message="impl:UnsupportedLanguagePairException" name="UnsupportedLanguagePairException"/>
+
+         <wsdl:fault message="impl:ServiceNotFoundException" name="ServiceNotFoundException"/>
+
+         <wsdl:fault message="impl:ServiceNotActiveException" name="ServiceNotActiveException"/>
+
+         <wsdl:fault message="impl:NoValidEndpointsException" name="NoValidEndpointsException"/>
+
+         <wsdl:fault message="impl:LanguagePairNotUniquelyDecidedException" name="LanguagePairNotUniquelyDecidedException"/>
+
+         <wsdl:fault message="impl:InvalidParameterException" name="InvalidParameterException"/>
+
+         <wsdl:fault message="impl:ServerBusyException" name="ServerBusyException"/>
+
+         <wsdl:fault message="impl:AccessLimitExceededException" name="AccessLimitExceededException"/>
+
+         <wsdl:fault message="impl:ProcessFailedException" name="ProcessFailedException"/>
+
+         <wsdl:fault message="impl:NoAccessPermissionException" name="NoAccessPermissionException"/>
+
+         <wsdl:fault message="impl:UnsupportedMatchingMethodException" name="UnsupportedMatchingMethodException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getLastUpdate">
+
+         <wsdl:input message="impl:getLastUpdateRequest" name="getLastUpdateRequest"/>
+
+         <wsdl:output message="impl:getLastUpdateResponse" name="getLastUpdateResponse"/>
+
+         <wsdl:fault message="impl:ServiceNotFoundException" name="ServiceNotFoundException"/>
+
+         <wsdl:fault message="impl:ServiceNotActiveException" name="ServiceNotActiveException"/>
+
+         <wsdl:fault message="impl:NoValidEndpointsException" name="NoValidEndpointsException"/>
+
+         <wsdl:fault message="impl:ServerBusyException" name="ServerBusyException"/>
+
+         <wsdl:fault message="impl:AccessLimitExceededException" name="AccessLimitExceededException"/>
+
+         <wsdl:fault message="impl:ProcessFailedException" name="ProcessFailedException"/>
+
+         <wsdl:fault message="impl:NoAccessPermissionException" name="NoAccessPermissionException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="BilingualDictionaryWithLongestMatchSearchSoapBinding" type="impl:BilingualDictionaryWithLongestMatchSearch">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getSupportedMatchingMethods">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSupportedMatchingMethodsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://bilingualdictionary.ws_1_2.wrapper.langrid.nict.go.jp" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSupportedMatchingMethodsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ServiceNotFoundException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServiceNotFoundException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ServiceNotActiveException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServiceNotActiveException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoValidEndpointsException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoValidEndpointsException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ServerBusyException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServerBusyException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="AccessLimitExceededException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="AccessLimitExceededException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ProcessFailedException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ProcessFailedException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoAccessPermissionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoAccessPermissionException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSupportedLanguagePairs">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSupportedLanguagePairsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://bilingualdictionary.ws_1_2.wrapper.langrid.nict.go.jp" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSupportedLanguagePairsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="searchLongestMatchingTerms">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="searchLongestMatchingTermsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://bilingualdictionary.ws_1_2.wrapper.langrid.nict.go.jp" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="searchLongestMatchingTermsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="UnsupportedLanguagePairException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnsupportedLanguagePairException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ServiceNotFoundException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServiceNotFoundException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ServiceNotActiveException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServiceNotActiveException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoValidEndpointsException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoValidEndpointsException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="LanguagePairNotUniquelyDecidedException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="LanguagePairNotUniquelyDecidedException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidParameterException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidParameterException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ServerBusyException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServerBusyException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="AccessLimitExceededException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="AccessLimitExceededException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ProcessFailedException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ProcessFailedException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoAccessPermissionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoAccessPermissionException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="UnsupportedMatchingMethodException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnsupportedMatchingMethodException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="search">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="searchRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://bilingualdictionary.ws_1_2.wrapper.langrid.nict.go.jp" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="searchResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="UnsupportedLanguagePairException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnsupportedLanguagePairException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ServiceNotFoundException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServiceNotFoundException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ServiceNotActiveException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServiceNotActiveException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoValidEndpointsException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoValidEndpointsException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="LanguagePairNotUniquelyDecidedException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="LanguagePairNotUniquelyDecidedException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="InvalidParameterException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="InvalidParameterException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ServerBusyException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServerBusyException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="AccessLimitExceededException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="AccessLimitExceededException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ProcessFailedException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ProcessFailedException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoAccessPermissionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoAccessPermissionException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="UnsupportedMatchingMethodException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnsupportedMatchingMethodException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getLastUpdate">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getLastUpdateRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws_1_2.wrapper.langrid.nict.go.jp" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getLastUpdateResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ServiceNotFoundException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServiceNotFoundException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ServiceNotActiveException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServiceNotActiveException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoValidEndpointsException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoValidEndpointsException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ServerBusyException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ServerBusyException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="AccessLimitExceededException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="AccessLimitExceededException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="ProcessFailedException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="ProcessFailedException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="NoAccessPermissionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="NoAccessPermissionException" namespace="${targetNamespace}" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="${serviceName}">
+
+      <wsdl:port binding="impl:BilingualDictionaryWithLongestMatchSearchSoapBinding" name="BilingualDictionaryWithLongestMatchSearch">
+
+         <wsdlsoap:address location="${endpointUrl}"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
