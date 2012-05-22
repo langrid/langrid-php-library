@@ -3,7 +3,6 @@
 require_once('SOAP/Type/dateTime.php');
 
 require_once (dirname(__FILE__) . '/../MultiLanguageStudio.php');
-require_once (dirname(__FILE__) . '/../commons/LanguagePair.php');
 require_once (dirname(__FILE__) . '/../commons/Translation.php');
 require_once (dirname(__FILE__) . '/../commons/SOAP/TranslationSOAP.php');
 
@@ -150,6 +149,7 @@ class BillingualDictionaryService
 
     public function searchLongestMatchingTerms($headLang, $targetLang, $morphemes) {
         // 2012-05-22 未実装
+        $dictionary = Dictionary::find($this->dictionaryName);
        return $dictionary->searchLongestMatchingTerms($headLang, $targetLang, $morphemes);
 
     }
@@ -176,5 +176,12 @@ class BillingualDictionaryService
     }
 }
 
+class LanguagePair {
+    public $first = '';
+    public $second = '';
 
-?>
+    public function __construct($firstLang, $secondLang) {
+        $this->first = $firstLang;
+        $this->second = $secondLang;
+    }
+}
