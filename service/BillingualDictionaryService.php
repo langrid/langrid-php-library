@@ -4,6 +4,7 @@ require_once('SOAP/Type/dateTime.php');
 
 require_once (dirname(__FILE__) . '/../MultiLanguageStudio.php');
 require_once (dirname(__FILE__) . '/../commons/Translation.php');
+require_once (dirname(__FILE__) . '/../commons/SOAP/TranslationWithPositionSOAP.php');
 require_once (dirname(__FILE__) . '/../commons/SOAP/TranslationSOAP.php');
 
 class BillingualDictionarySOAPServer
@@ -147,12 +148,6 @@ class BillingualDictionaryService
         return $date->toSoap();
     }
 
-    public function searchLongestMatchingTerms($headLang, $targetLang, $morphemes) {
-        // 2012-05-22 未実装
-        $dictionary = Dictionary::find($this->dictionaryName);
-       return $dictionary->searchLongestMatchingTerms($headLang, $targetLang, $morphemes);
-
-    }
 
     public function search($headLang, $targetLang, $headWord, $matchingMethod)
     {
@@ -166,7 +161,7 @@ class BillingualDictionaryService
         $translations = $dictionary->search($headLang, $targetLang, $headWord, $matchingMethod);
 
         $soap_translations = array();
-        foreach($translations as $translation){
+        foreach ($translations as $translation) {
             array_push($soap_translations, new SOAP_Value('searchReturn', 'searchReturn', new TranslationSOAP($translation->getHeadWord(), $translation->getTargetWords())));
         }
 
@@ -174,13 +169,124 @@ class BillingualDictionaryService
 
         return $result;
     }
+
+    public function searchLongestMatchingTerms($headLang, $targetLang, $morphemes)
+    {
+
+
+        $matchingMethod = 'prefix';
+        $positionArray = array();
+        $dictionary = Dictionary::find($this->dictionaryName);
+
+        $this->dump($morphemes);
+
+        for ($i = 0; $i < count($morphemes); $i++) {
+            $m = $morphemes[$i];
+
+
+
+
+            $translations = $dictionary->search($headLang, $targetLang, $m->word, $matchingMethod);
+            if ($translations === null || !is_array($translations) || count($translations) == 0) {
+                continue;
+            }
+            usort($translations, array('TranslationSortComparator', 'comparator_object'));
+
+
+            for ($j = 0; $j < count($translations); $j++) {
+                $translation = $translations[$j];
+
+                $headWord = $translation->getHeadWord();
+
+                if (strtolower($m->word) == strtolower($headWord)) {
+
+                    $positionArray[] = $this->makeTranslationWithPosition($headWord, $translation->getTargetWords(), 1, $i);
+                    break;
+                }
+
+                $sentence = $m->word;
+                $hit = false;
+                for ($k = $i + 1; $k < count($morphemes); $k++) {
+                    $sentence = $sentence . $this->getWordSeparator($headLang) . $morphemes[$k]->word;
+                    if (strtolower($sentence) == strtolower($headWord)) {
+                        $positionArray[] = $this->makeTranslationWithPosition($headWord, $translation->getTargetWords(), $k - $i + 1, $i);
+                        $i = $k;
+                        $hit = true;
+                        break;
+                    }
+                }
+                if ($hit) {
+                    break;
+                }
+            }
+        }
+
+
+        if (count($positionArray) == 0) {
+            return new SOAP_Value('searchLongestMatchingTermsReturn', 'searchLongestMatchingTermsReturn', '');
+        }
+
+        $this->dump($positionArray);
+
+        return new SOAP_Value('searchLongestMatchingTermsReturn', 'searchLongestMatchingTermsReturn', $positionArray);
+
+    }
+
+    private function dump($x)
+    {
+        ob_start();
+        var_dump($x);
+        $contents = ob_get_contents();
+        ob_end_clean();
+        error_log($contents);
+    }
+
+    private function getWordSeparator($lang)
+    {
+        $s = ' ';
+        switch (strtolower($lang)) {
+            case 'ja':
+            case 'zh':
+                $s = '';
+                break;
+            default:
+                break;
+        }
+        return $s;
+    }
+
+    private function makeTranslationWithPosition($headWord, $target, $numberOfMorphemes, $startIndex)
+    {
+        $t = new TranslationSOAP($headWord, $target);
+        $position = new TranslationWithPositionSOAP($t, $startIndex, $numberOfMorphemes);
+        return new SOAP_Value('TranslationWithPosition', 'TranslationWithPosition', $position);
+
+    }
 }
 
-class LanguagePair {
+class TranslationSortComparator
+{
+
+    function TranslationSortComparator()
+    {
+    }
+
+    static function comparator_object($a, $b)
+    {
+        $len0 = strlen($a->headWord);
+        $len1 = strlen($b->headWord);
+
+        return $len1 - $len0;
+    }
+}
+
+class LanguagePair
+{
     public $first = '';
     public $second = '';
 
-    public function __construct($firstLang, $secondLang) {
+    public function __construct($firstLang, $secondLang)
+    {
         $this->first = $firstLang;
         $this->second = $secondLang;
     }
