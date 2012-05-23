@@ -5,14 +5,14 @@ class ParallelTextWSDL
 
     private $endpointUrl;
     private $targetNamespace;
-    private $serviceId;
+    private $dictionaryId;
 
-    public function __construct($endpointURL, $serviceId, $targetNamespace)
+    public function __construct($endpointURL, $dictionaryId, $targetNamespace)
     {
 
         $this->endpointUrl = $endpointURL;
         $this->targetNamespace = $targetNamespace;
-        $this->serviceId = $serviceId;
+        $this->serviceId = $dictionaryId;
 
     }
 

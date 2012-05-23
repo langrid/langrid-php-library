@@ -10,7 +10,7 @@ class ParallelTextSOAPServer
 {
     private $server;
 
-    public function __construct($serviceId)
+    public function __construct($dictionaryId)
     {
 
         require_once('SOAP/Server.php');
@@ -18,7 +18,7 @@ class ParallelTextSOAPServer
         error_log("start soap server....");
         $this->server = new SOAP_Server();
         $this->server->addObjectMap(
-            new ParallelTextService($serviceId)
+            new ParallelTextService($dictionaryId)
             , 'http://paralleltext.ws_1_2.wrapper.langrid.nict.go.jp'
         );
         error_log("started");

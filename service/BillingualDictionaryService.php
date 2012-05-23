@@ -11,7 +11,7 @@ class BillingualDictionarySOAPServer
 {
     private $server;
 
-    public function __construct($serviceId)
+    public function __construct($dictionaryId)
     {
 
         require_once('SOAP/Server.php');
@@ -19,7 +19,7 @@ class BillingualDictionarySOAPServer
         error_log("start soap server....");
         $this->server = new SOAP_Server();
         $this->server->addObjectMap(
-            new BillingualDictionaryService($serviceId)
+            new BillingualDictionaryService($dictionaryId)
             , 'http://bilingualdictionary.ws_1_2.wrapper.langrid.nict.go.jp'
         );
         error_log("started");
@@ -172,8 +172,6 @@ class BillingualDictionaryService
 
     public function searchLongestMatchingTerms($headLang, $targetLang, $morphemes)
     {
-
-
         $matchingMethod = 'prefix';
         $positionArray = array();
         $dictionary = Dictionary::find($this->dictionaryName);
@@ -181,12 +179,9 @@ class BillingualDictionaryService
         $this->dump($morphemes);
 
         for ($i = 0; $i < count($morphemes); $i++) {
-            $m = $morphemes[$i];
+            $word = $morphemes[$i]->word;
 
-
-
-
-            $translations = $dictionary->search($headLang, $targetLang, $m->word, $matchingMethod);
+            $translations = $dictionary->search($headLang, $targetLang, $word, $matchingMethod);
             if ($translations === null || !is_array($translations) || count($translations) == 0) {
                 continue;
             }
@@ -196,27 +191,19 @@ class BillingualDictionaryService
             for ($j = 0; $j < count($translations); $j++) {
                 $translation = $translations[$j];
 
-                $headWord = $translation->getHeadWord();
-
-                if (strtolower($m->word) == strtolower($headWord)) {
-
-                    $positionArray[] = $this->makeTranslationWithPosition($headWord, $translation->getTargetWords(), 1, $i);
+                if (strtolower($word) == strtolower($translation->getHeadWord())) {
+                    $positionArray[] = $this->createTranslationWithPosition($translation->getHeadWord(), $translation->getTargetWords(), 1, $i);
                     break;
                 }
 
-                $sentence = $m->word;
-                $hit = false;
+                $sentence = $word;
                 for ($k = $i + 1; $k < count($morphemes); $k++) {
                     $sentence = $sentence . $this->getWordSeparator($headLang) . $morphemes[$k]->word;
-                    if (strtolower($sentence) == strtolower($headWord)) {
-                        $positionArray[] = $this->makeTranslationWithPosition($headWord, $translation->getTargetWords(), $k - $i + 1, $i);
+                    if (strtolower($sentence) == strtolower($translation->getHeadWord())) {
+                        $positionArray[] = $this->createTranslationWithPosition($translation->getHeadWord(), $translation->getTargetWords(), $k - $i + 1, $i);
                         $i = $k;
-                        $hit = true;
-                        break;
+                        break 2;
                     }
-                }
-                if ($hit) {
-                    break;
                 }
             }
         }
@@ -255,11 +242,10 @@ class BillingualDictionaryService
         return $s;
     }
 
-    private function makeTranslationWithPosition($headWord, $target, $numberOfMorphemes, $startIndex)
+    private function createTranslationWithPosition($headWord, $target, $numberOfMorphemes, $startIndex)
     {
-        $t = new TranslationSOAP($headWord, $target);
-        $position = new TranslationWithPositionSOAP($t, $startIndex, $numberOfMorphemes);
-        return new SOAP_Value('TranslationWithPosition', 'TranslationWithPosition', $position);
+        $translationWithPosition = new TranslationWithPositionSOAP(new TranslationSOAP($headWord, $target), $startIndex, $numberOfMorphemes);
+        return new SOAP_Value('TranslationWithPosition', 'TranslationWithPosition', $translationWithPosition);
 
     }
 }
