@@ -8,6 +8,8 @@
  */
 require_once 'models/LocalServiceAllTests.php';
 require_once 'bridge/BridgeAllTests.php';
+require_once 'resource/LanguageResourceManagerTest.php';;
+require_once 'resource/KyotoLangridResourceTest.php';
 
 class AllTests
 {
@@ -17,7 +19,8 @@ class AllTests
 
         $suite->addTest(LocalServiceAllTests::suite());
         $suite->addTest(BridgeAllTests::suite());
-
+        $suite->addTestSuite("KyotoLangridResourceTest");
+        
         return $suite;
     }
 }
