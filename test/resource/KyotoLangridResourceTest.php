@@ -17,7 +17,8 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider parallelTextWsdlProvider
      */
-    public function testParallelTextResource($endpoint, $headLang, $targetLang, $text, $mat = MatchingMethod::PREFIX)
+    //テストで結果をチェックするように 2013/01/23 西村
+    public function testParallelTextResource($endpoint, $headLang, $targetLang, $text, $answer, $mat = MatchingMethod::PREFIX)
     {
         $client = ClientFactory::createParallelTextClient($endpoint);
         $result = $client->search(
@@ -26,33 +27,36 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
             $text, 
             $mat
         );
-        $this->assertTrue(is_array($result));
+        $this->assertEquals($answer,$result[0]->target);//2013/01/12 Nishimura テスト内容の変更のため
     }
     
     /**
      * @dataProvider morphologicalAnalysisWsdlProvider
      */
-    public function testMorphologicalAnalysisResource($endpoint, $lang, $text)
+    //テストで結果をチェックするように 2013/01/28 西村
+    public function testMorphologicalAnalysisResource($endpoint, $lang, $text, $answer)
     {
         $client = ClientFactory::createMorphologicalAnalysisClient($endpoint);
         $result = $client->analyze(Language::get($lang), $text);
-        $this->assertTrue(is_array($result));
+        $this->assertEquals($answer,$result[0]->word);
     }
     
     /**
      * @dataProvider conceptDictionaryWsdlProvider
      */
-    public function testConceptDictionaryResource($endpoint, $lang, $text, $mat = MatchingMethod::COMPLETE)
+    //テストで結果をチェックするように 2013/01/28 西村
+    public function testConceptDictionaryResource($endpoint, $lang, $text, $answer, $mat = MatchingMethod::COMPLETE)
     {
         $client = ClientFactory::createConceptDictionaryClient($endpoint);
         $result = $client->searchConcepts(Language::get($lang), $text, $mat);
-        $this->assertTrue(is_array($result));
+        $this->assertEquals($answer,$result[0]->glosses[0]->glossText);
     }
     
     /**
      * @dataProvider bilingualDictionaryWsdlProvider
      */
-    public function testBilingualDictionaryResource($endpoint, $headLang, $targetLang, $text, $mat = MatchingMethod::PREFIX)
+    //テストで結果をチェックするように 2013/01/28 西村
+    public function testBilingualDictionaryResource($endpoint, $headLang, $targetLang, $text, $answer ,$mat = MatchingMethod::COMPLETE)
     {
         $client = ClientFactory::createBilingualDictionaryClient($endpoint);
         $result = $client->search(
@@ -61,29 +65,33 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
             $text, 
             $mat
         );
-        $this->assertTrue(is_array($result));
+        $this->assertEquals($answer,$result[0]->targetWords[0]);
     }
     
     /**
      * @dataProvider bilingualDictionaryWithLongestMatchSearchWsdlProvider
      */
-    public function testBilingualDictionaryWithLongestMatchSearchResource($endpoint, $headLang, $targetLang, $morphems = array())
+    public function testBilingualDictionaryWithLongestMatchSearchResource($endpoint, $headLang, $targetLang, $morphemesArray, $answer)
     {
         $client = ClientFactory::createBilingualDictionaryWithLongestMatchSearchClient($endpoint);
+        $morphemes = array(new Morpheme($morphemesArray[0], $morphemesArray[1], $morphemesArray[2]));
         $result = $client->searchLongestMatchingTerms(
             Language::get($headLang),
             Language::get($targetLang),
-            $morphems
+            $morphemes
         ); 
+        $this->assertEquals($answer,$result[0]->translation->targetWords[0]);
     }
     
     /**
      * @dataProvider dependencyParserWsdlProvider
      */
-    public function testDependencyParserResource($endpoint, $lang, $sentence)
+    //テストで結果をチェックするように 2013/02/04 西村
+    public function testDependencyParserResource($endpoint, $lang, $sentence,$answer)
     {
         $client = ClientFactory::createDependencyParserClient($endpoint);
-        $client->parseDependency(Language::get($lang), $sentence); // TODO よくわからないけどエラー
+        $result = $client->parseDependency(Language::get($lang), $sentence); 
+        $this->assertEquals($answer,$result[0]->morphemes[0]->lemma);
     }
     
     /**
@@ -91,7 +99,7 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
      */
     public function testKeyphraseExtractionResource($endpoint)
     {
-        $this->markTestIncomplete("未実装");
+        $this->markTestIncomplete("サービス未実装");
     }
     
     /**
@@ -101,37 +109,41 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
     {
         $client = ClientFactory::createLanguageIdentificationClient($endpoint);
 //         $client->identify($text, $originalEncoding);
-        $this->markTestIncomplete("未実装");
+        $this->markTestIncomplete("サービス未実装");
     }
     
     /**
      * @dataProvider similarityCalculationWsdlProvider
      */
-    public function testSimilarityCalculationResource($endpoint, $lang, $text1, $text2)
+    //テストで結果をチェックするように 2013/02/04 西村
+    public function testSimilarityCalculationResource($endpoint, $lang, $text1, $text2, $answer)
     {
         $client = ClientFactory::createSimilarityCalculationClient($endpoint);
         $result = $client->calculate(Language::get($lang), $text1, $text2);
-        $this->assertEquals(0, $result);
+        $this->assertEquals($answer, $result);
     }
     
     /**
      * @dataProvider speechRecognitionWsdlProvider
      */
-    public function testSpeechRecognitionResource($endpoint)
+     //結果をチェックしていないが，音声ファイルを関数に渡す方法が分からなかったので
+     //対応している言語の結果だけをチェックするように
+     //2013/02/04西村
+    public function testSpeechRecognitionResource($endpoint,$answer)
     {
         $client = ClientFactory::createSpeechRecognitionClient($endpoint);
         $result = $client->getSupportedLanguages();
-        $this->assertTrue(is_array($result));
+        $this->assertEquals($answer,$result[0]);
     }
     
     /**
      * @dataProvider templateParallelTextWsdlProvider
      */
-    public function testTemplateParallelTextResource($endpoint, $lang)
+    public function testTemplateParallelTextResource($endpoint, $lang, $text, $answer,$categoryNo, $mat = MatchingMethod::PARTIAL)
     {
         $client = ClientFactory::createTemplateParallelTextClient($endpoint);
-        $result = $client->listTemplateCategories(Language::get($lang));
-        $this->assertTrue(is_array($result));
+        $result = $client->searchTemplates(Language::get($lang),$text,$mat,array($categoryNo));
+        $this->assertEquals($answer,$result[0]->template);
     }
     
     /**
@@ -148,11 +160,11 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider translationWsdlProvider
      */
-    public function testTranslationResource($endpoint, $sourceLang, $targetLang, $source)
+    public function testTranslationResource($endpoint, $sourceLang, $targetLang, $source, $answer)
     {
         $client = ClientFactory::createTranslationClient($endpoint);
         $result = $client->translate(Language::get($sourceLang), Language::get($targetLang), $source);
-        $this->assertTrue(is_string($result));
+        $this->assertEquals($answer,$result);
     }
     
     /**
