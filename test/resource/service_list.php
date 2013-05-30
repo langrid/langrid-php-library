@@ -372,7 +372,9 @@ class ServiceList
                 "kyoto1.langrid:LsdDb" => array(
                     "http://langrid.org/service_manager/wsdl/kyoto1.langrid:LsdDb", 
                     "en", 
-                    "ja", 
+                    "ja",
+		    Array('snow','snow','noun'),
+		    "雪" 
                 )
             ),
             
