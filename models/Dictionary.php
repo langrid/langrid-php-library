@@ -147,9 +147,7 @@ class Dictionary extends MLSModel
         $translations = array();
         foreach ($this->get_records() as $record) {
             $bilingualWordPair = $record->get_contents();
-
             if ($this->isMatch($headLang, $targetLang, $headWord, $matchingMethod, $bilingualWordPair)) {
-                error_log("search result=".$bilingualWordPair[$headLang]);
                 array_push($translations, new Translation($bilingualWordPair[$headLang], array($bilingualWordPair[$targetLang])));
             }
         }
@@ -178,7 +176,7 @@ class Dictionary extends MLSModel
         } else if ($upMatchingMethod === "REGEXP") {
             return preg_match("/$headWord/i", $bilingualWordPair[$headLang]);
         } else {
-            // 本当はExceptionを投げる
+            // Should throws an exception
             if($headWord === $bilingualWordPair[$headLang]){
                 return true;
             }else{
@@ -191,7 +189,7 @@ class Dictionary extends MLSModel
     function get_records( /* ... */)
     {
         $options = static::extract_and_validate_options(func_get_args());
-        if (!@$options['limit']) $options['limit'] = 10;
+        //if (!@$options['limit']) $options['limit'] = 10;
         if (!@$options['offset']) $options['offset'] = 0;
         return call_user_func_array(get_class($this) . 'Record::find_all_by_' . self::get_resource_name() . '_id', array($this->id, $options));
     }

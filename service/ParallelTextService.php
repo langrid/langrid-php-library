@@ -15,14 +15,14 @@ class ParallelTextSOAPServer
 
         require_once('SOAP/Server.php');
         header("Content-type: text/xml; charset=UTF-8");
-        error_log("start soap server....");
+        error_log("DEBUG: start soap server....");
         $this->server = new SOAP_Server();
         $this->server->addObjectMap(
             new ParallelTextService($dictionaryId)
             , 'http://paralleltext.ws_1_2.wrapper.langrid.nict.go.jp'
         );
-        error_log("started");
-        error_log(file_get_contents("php://input"));
+        error_log("DEBUG: started");
+        error_log("DEBUG: " . file_get_contents("php://input"));
     }
 
     public function  service($request)
@@ -69,9 +69,9 @@ class ParallelTextService
     public function search($headLang, $targetLang, $headWord, $matchingMethod)
     {
 
-        error_log('search dic id=' . $this->dictionaryName);
-        error_log('search lang=' . $headLang);
-        error_log('search word=' . $headWord);
+        error_log('DEBUG: search dic id=' . $this->dictionaryName);
+        error_log('DEBUG: search lang=' . $headLang);
+        error_log('DEBUG: search word=' . $headWord);
 
         $dictionary = Dictionary::find($this->dictionaryName);
 

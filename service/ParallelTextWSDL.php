@@ -5,20 +5,20 @@ class ParallelTextWSDL
 
     private $endpointUrl;
     private $targetNamespace;
-    private $dictionaryId;
+    private $dictionaryName;
 
-    public function __construct($endpointURL, $dictionaryId, $targetNamespace)
+    public function __construct($endpointURL, $dictionaryName, $targetNamespace)
     {
 
         $this->endpointUrl = $endpointURL;
         $this->targetNamespace = $targetNamespace;
-        $this->serviceId = $dictionaryId;
+        $this->serviceId = $dictionaryName;
 
     }
 
     public function getWSDL()
     {
-        error_log($this->endpointUrl);
+        error_log("DEBUG: " . $this->endpointUrl);
         try {
             $templatePath = dirname(__FILE__) . '/templates/ParallelText.xml.template';
             if (!file_exists($templatePath)) {

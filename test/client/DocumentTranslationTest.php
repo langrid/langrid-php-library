@@ -52,10 +52,6 @@ class DocumentTranslationTest extends PHPUnit_Framework_TestCase
     {
         $outFile = $outDir . '/' . date('Ymd-his', time()) . '_' .
             $sourceLang . '2' . $targetLang . '.' . $this->doc->getExtension();
-        error_log("outfile="+$outFile);
-        print("outfile="+$outFile);
-        echo($outFile);
-        var_dump($result);
 
         if ($result->finished) {
             $fp = fopen($outFile, 'w');

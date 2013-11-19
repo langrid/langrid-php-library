@@ -11,19 +11,19 @@ class BillingualDictionarySOAPServer
 {
     private $server;
 
-    public function __construct($dictionaryId)
+    public function __construct($dictionaryName)
     {
 
         require_once('SOAP/Server.php');
         header("Content-type: text/xml; charset=UTF-8");
-        error_log("start soap server....");
+        error_log("DEBUG: Start a SOAP server....");
         $this->server = new SOAP_Server();
         $this->server->addObjectMap(
-            new BillingualDictionaryService($dictionaryId)
+            new BillingualDictionaryService($dictionaryName)
             , 'http://bilingualdictionary.ws_1_2.wrapper.langrid.nict.go.jp'
         );
-        error_log("started");
-        error_log(file_get_contents("php://input"));
+        error_log("DEBUG: the SOAP Server is started.");
+        error_log("DEBUG: recieved SOAP message is " . file_get_contents("php://input"));
     }
 
     public function  service($request)
@@ -121,8 +121,9 @@ class BillingualDictionaryService
 
     public function getSupportedLanguagePairs()
     {
-        error_log("getSupportedLanguagePairs");
-        $dictionary = Dictionary::find($this->dictionaryName);
+        error_log("DEBUG: call getSupportedLanguagePairs");
+        //$dictionary = Dictionary::find($this->dictionaryName);
+        $dictionary = Dictionary::find('first', array('conditions' => array('name = ?', $this->dictionaryName)));
         $languages = $dictionary->get_languages();
 
         $pairs = array();
@@ -143,7 +144,7 @@ class BillingualDictionaryService
 
     public function getLastUpdate()
     {
-        error_log("getLastUpdate");
+        error_log("DEBUG: getLastUpdate");
         $date = new SOAP_Type_dateTime(0);
         return $date->toSoap();
     }
@@ -152,13 +153,15 @@ class BillingualDictionaryService
     public function search($headLang, $targetLang, $headWord, $matchingMethod)
     {
 
-        error_log('search dic id=' . $this->dictionaryName);
-        error_log('search lang=' . $headLang);
-        error_log('search word=' . $headWord);
+        error_log('DEBUG: search dic id=' . $this->dictionaryName);
+        error_log('DEBUG: search lang=' . $headLang);
+        error_log('DEBUG: search word=' . $headWord);
 
-        $dictionary = Dictionary::find($this->dictionaryName);
-
+        //$dictionary = Dictionary::find($this->dictionaryName);
+        $dictionary = Dictionary::find('first', array('conditions' => array('name = ?', $this->dictionaryName)));
+        
         $translations = $dictionary->search($headLang, $targetLang, $headWord, $matchingMethod);
+        error_log(print_r($translations, true));
 
         $soap_translations = array();
         foreach ($translations as $translation) {
@@ -166,7 +169,8 @@ class BillingualDictionaryService
         }
 
         $result = new SOAP_Value('searchReturn', 'searchReturn', $soap_translations);
-
+        error_log(print_r($result, true));
+        
         return $result;
     }
 
@@ -174,7 +178,8 @@ class BillingualDictionaryService
     {
         $matchingMethod = 'prefix';
         $positionArray = array();
-        $dictionary = Dictionary::find($this->dictionaryName);
+        //$dictionary = Dictionary::find($this->dictionaryName);
+        $dictionary = Dictionary::find('first', array('conditions' => array('name = ?', $this->dictionaryName)));
 
         $this->dump($morphemes);
 
@@ -225,7 +230,7 @@ class BillingualDictionaryService
         var_dump($x);
         $contents = ob_get_contents();
         ob_end_clean();
-        error_log($contents);
+        error_log("DEBUG: " . $contents);
     }
 
     private function getWordSeparator($lang)

@@ -1,5 +1,4 @@
 <?php
-
 class BillingualDictionaryWSDL
 {
 
@@ -18,7 +17,7 @@ class BillingualDictionaryWSDL
 
     public function getWSDL()
     {
-        error_log($this->endpointUrl);
+        error_log("DEBUG: " . $this->endpointUrl);
         try {
             $templatePath = dirname(__FILE__) . '/templates/BilingualDictionary.xml.template';
             if (!file_exists($templatePath)) {
@@ -34,9 +33,10 @@ class BillingualDictionaryWSDL
             $wsdl = preg_replace('/\$\{endpointUrl\}/', $endpointUrl, $temp);
             header("Content-Type: text/xml; charset=UTF-8");
             header('Content-Disposition: inline; filename="' . $this->serviceId . '"');
-            echo $wsdl;
+            print($wsdl);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
     }
 }
+?>
