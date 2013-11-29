@@ -14,16 +14,16 @@ class BillingualDictionarySOAPServer
     public function __construct($dictionaryName)
     {
 
+        //error_log("DEBUG: Start a SOAP server....");
         require_once('SOAP/Server.php');
         header("Content-type: text/xml; charset=UTF-8");
-        error_log("DEBUG: Start a SOAP server....");
         $this->server = new SOAP_Server();
         $this->server->addObjectMap(
             new BillingualDictionaryService($dictionaryName)
             , 'http://bilingualdictionary.ws_1_2.wrapper.langrid.nict.go.jp'
         );
-        error_log("DEBUG: the SOAP Server is started.");
-        error_log("DEBUG: recieved SOAP message is " . file_get_contents("php://input"));
+        //error_log("DEBUG: the SOAP Server is started.");
+        //error_log("DEBUG: recieved SOAP message is " . file_get_contents("php://input"));
     }
 
     public function  service($request)
@@ -121,7 +121,7 @@ class BillingualDictionaryService
 
     public function getSupportedLanguagePairs()
     {
-        error_log("DEBUG: call getSupportedLanguagePairs");
+        //error_log("DEBUG: call getSupportedLanguagePairs");
         //$dictionary = Dictionary::find($this->dictionaryName);
         $dictionary = Dictionary::find('first', array('conditions' => array('name = ?', $this->dictionaryName)));
         $languages = $dictionary->get_languages();
@@ -137,14 +137,13 @@ class BillingualDictionaryService
 
     public function getSupportedMatchingMethods()
     {
+        //error_log("DEBUG: call getSupportedMatchingMethods");      
         return Dictionary::getSupportedMatchingMethods();
-
-
     }
 
     public function getLastUpdate()
     {
-        error_log("DEBUG: getLastUpdate");
+        //error_log("DEBUG: getLastUpdate");
         $date = new SOAP_Type_dateTime(0);
         return $date->toSoap();
     }
@@ -152,16 +151,16 @@ class BillingualDictionaryService
 
     public function search($headLang, $targetLang, $headWord, $matchingMethod)
     {
-
-        error_log('DEBUG: search dic id=' . $this->dictionaryName);
-        error_log('DEBUG: search lang=' . $headLang);
-        error_log('DEBUG: search word=' . $headWord);
+        //error_log('DEBUG: search dic id=' . $this->dictionaryName);
+        //error_log('DEBUG: search dic id=' . $this->dictionaryName);
+        //error_log('DEBUG: search lang=' . $headLang);
+        //error_log('DEBUG: search word=' . $headWord);
 
         //$dictionary = Dictionary::find($this->dictionaryName);
         $dictionary = Dictionary::find('first', array('conditions' => array('name = ?', $this->dictionaryName)));
         
         $translations = $dictionary->search($headLang, $targetLang, $headWord, $matchingMethod);
-        error_log(print_r($translations, true));
+        //error_log(print_r($translations, true));
 
         $soap_translations = array();
         foreach ($translations as $translation) {
@@ -169,19 +168,19 @@ class BillingualDictionaryService
         }
 
         $result = new SOAP_Value('searchReturn', 'searchReturn', $soap_translations);
-        error_log(print_r($result, true));
+        //error_log(print_r($result, true));
         
         return $result;
     }
 
     public function searchLongestMatchingTerms($headLang, $targetLang, $morphemes)
     {
+        //error_log("DEBUG: Start Longest matching search.");
         $matchingMethod = 'prefix';
         $positionArray = array();
         //$dictionary = Dictionary::find($this->dictionaryName);
         $dictionary = Dictionary::find('first', array('conditions' => array('name = ?', $this->dictionaryName)));
-
-        $this->dump($morphemes);
+        //$this->dump($morphemes);
 
         for ($i = 0; $i < count($morphemes); $i++) {
             $word = $morphemes[$i]->word;
@@ -218,9 +217,10 @@ class BillingualDictionaryService
             return new SOAP_Value('searchLongestMatchingTermsReturn', 'searchLongestMatchingTermsReturn', '');
         }
 
-        $this->dump($positionArray);
-
-        return new SOAP_Value('searchLongestMatchingTermsReturn', 'searchLongestMatchingTermsReturn', $positionArray);
+        //$this->dump($positionArray);
+        $result = new SOAP_Value('searchLongestMatchingTermsReturn', 'searchLongestMatchingTermsReturn', $positionArray);
+        //error_log("DEBUG: END Longest matching search.");
+        return $result;
 
     }
 
@@ -264,8 +264,8 @@ class TranslationSortComparator
 
     static function comparator_object($a, $b)
     {
-        $len0 = strlen($a->headWord);
-        $len1 = strlen($b->headWord);
+        $len0 = strlen($a->getHeadWord());
+        $len1 = strlen($b->getHeadWord());
 
         return $len1 - $len0;
     }
