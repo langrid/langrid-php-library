@@ -441,104 +441,18 @@ class ServiceList
                     'ja',
                     Array('hello', 'hello', 'noun'),
                     'こんにちは'
-                ),
-                // 2013/06/23 Sasaki Added
-                'kyoto1.langrid:JapanAgricultureDictionary' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:JapanAgricultureDictionary',
-                    'en',
-                    'ja',
-                    Array('rice','rice','noun'),
-                    '米'
-                ),
-                // 2013/06/23 Sasaki Added
-                'kyoto1.langrid:YMCRiceDictionary' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:YMCRiceDictionary',
-                    'en',
-                    'ja',
-                    Array('rice','rice','noun'),
-                    '米'
-                ),
-                // 2013/06/23 Sasaki Added
-                'kyoto1.langrid:WikipediaDictionary_NationalParkUS_en' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:WikipediaDictionary_NationalParkUS_en',
-                    'en',
-                    'ja',
-                    Array('Ohio','Ohio','noun'),
-                    'オハイオ州'
-                ),
-                // 2013/06/23 Sasaki Added
-                'kyoto1.langrid:WikipediaDictionary_Katakana_ja' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:WikipediaDictionary_Katakana_ja',
-                    'ja',
-                    'zh-CN',
-                    Array('ソフトウェア','ソフトウェア','noun'),
-                    '计算机软件'
-                ),
-                // 2013/06/23 Sasaki Added
-                'kyoto1.langrid:TGEver1' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:TGEver1',
-                    'en',
-                    'ja',
-                    Array('Science','Science','noun'),
-                    '理科'
-                ),
-                // 2013/06/23 Sasaki Added
-                'kyoto1.langrid:RentalHousingDictionary' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:RentalHousingDictionary',
-                    'en',
-                    'ja',
-                    Array('home','home','noun'),
-                    'お住まい'
-                ),
-                // 2013/06/23 Sasaki Added
-                'kyoto1.langrid:NaturalDisasterDb' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:NaturalDisasterDb',
-                    'en',
-                    'ja',
-                    Array('earthquake','earthquake','noun'),
-                    '地震'
-                ),
-                // 2013/06/23 Sasaki Added
-                'kyoto1.langrid:MinamiAlpsNihongoDictionary' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MinamiAlpsNihongoDictionary',
-                    'en',
-                    'ja',
-                    Array('mountain','mountain','noun'),
-                    'やま'
-                ),
-                // 2013/06/23 Sasaki Added
-                'kyoto1.langrid:KyotoTourismDictionaryDb' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:KyotoTourismDictionaryDb',
-                    'en',
-                    'ja',
-                    Array('Kamogawa','Kamogawa','noun'),
-                    'かも川'
-                ),
-                // 2013/06/23 Sasaki Added
-                'kyoto1.langrid:KyotoSpecialtyDictionary' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:KyotoSpecialtyDictionary',
-                    'en',
-                    'ja',
-                    Array('food','food','noun'),
-                    '食材'
-                ),
+                )
             ),
             
-            'CompositeBilingualDictionaryWithLongestMatchSearch' => array(
-                'kyoto1.langrid:LsdDb' => array(
+            //130702 Nishimura Add
+            'BilingualDictionaryWithLongestMatchSearch' => array(
+                'kyoto1.langrid:BilingualDictionaryWithLongestMatchCrossSearch' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:BilingualDictionaryWithLongestMatchCrossSearch', 
-                    array(
-            "BilingualDictionaryWithLongestMatchCrossSearchPL1" => "LsdDb", 
-            "BilingualDictionaryWithLongestMatchCrossSearchPL2" => "LsdDb", 
-            "BilingualDictionaryWithLongestMatchCrossSearchPL3" => "LsdDb", 
-            "BilingualDictionaryWithLongestMatchCrossSearchPL4" => "LsdDb", 
-            "BilingualDictionaryWithLongestMatchCrossSearchPL5" => "LsdDb"),
                     'en',
                     'ja',
                     Array('snow','snow','noun'),
                     '雪'
                 ),
-            ),
             
             //$endpoint, $lang, $sentence, $answer
             //answerには最初の単語を入力する．
@@ -571,6 +485,12 @@ class ServiceList
                     '一个测试．',
                     '一'
                 ), 
+            ), 
+            
+            'KeyphraseExtraction' => array(
+                'kyoto1.langrid:GensenJa' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:GensenJa'
+                )
             ), 
            
             //$endpoint, $lang, $text, $answer
@@ -709,14 +629,14 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                     "Mini Test",
                     1
                 ),
-             //2013/06/07 Xun Added	 
-                'kyoto1.langrid:YMCExpertAnswerParallelText' => array(
-                     "http://langrid.org/service_manager/wsdl/kyoto1.langrid:YMCExpertAnswerParallelText", 
-                     "en", 
-                     "test",
-                     'Latest time of application means days required for agricultural chemicals in use before harvest. Make sure to follow latest time of application not to give any harm on human and living things in soil. Latest time of application is stated on labels of agricultural chemicals, so check it steadily before use.',
-                     1
-                )
+            // //2013/06/07 Xun Added	 
+               // 'kyoto1.langrid:YMCExpertAnswerParallelText' => array(
+                    // "http://langrid.org/service_manager/wsdl/kyoto1.langrid:YMCExpertAnswerParallelText", 
+                    // "en", 
+                    // "test",
+                    // "Latest time of application means days required for agricultural chemicals in use before harvest. Make sure to follow latest time of application not to give any harm on human and living things in soil. Latest time of application is stated on labels of agricultural chemicals, so check it steadily before use.",
+                    // 1
+                // )
             ), 
             
             //2013/06/05 Xun Added
@@ -846,7 +766,7 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                 ),
             ),
            
-            // $endpoint, $headLang, $targetLang, $text, $answer
+                        // $endpoint, $headLang, $targetLang, $text, $answer
             // answerには翻訳結果を入力する
 			// endpointに関して，このサービスタイプはGETパラメータとしてdicIdに内部辞書のIDを付加すると，
 			// それを利用して翻訳を行う．
@@ -884,7 +804,6 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                             'こんにちは',
                             ),
             ),
-            
             //2013/06/05 Xun Added	            
             'PictogramDictionary' => array(
                 'kyoto1.langrid:PangaeaPictogram' => array(
@@ -908,7 +827,7 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
             
             //2013/06/15 Nishimura Added	            
             'TextSummarization' => array(
-                'kyoto1.langrid:JapaneseSummarizer' => array(
+                'kyoto1.langrid:PangaeaPictogram' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:JapaneseSummarizer', 
                     'ja', 
                     '京都オペレーションセンター（京都大学社会情報学専攻）が運営している言語グリッドは，非営利利用および研究利用に利用できます．利用にあたっては，利用組織とオペレーションセンターとの間で覚書の締結が必要となります．
@@ -967,8 +886,11 @@ Atlantis: The Lost Empire premiered at the El Capitan Theatre in Hollywood, Cali
             'BackTranslation' => array(
                 'kyoto1.langrid:BackTranslation' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:BackTranslation', 
+                    array("ForwardTranslationPL"  => "GoogleTranslate","BackwardTranslationPL" => "GoogleTranslate"),
                     'en', 
                     'ja', 
+                    'en', 
+                    'hello', 
                     'hello',
                 ),
             ),

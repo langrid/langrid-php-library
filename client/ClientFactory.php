@@ -16,6 +16,7 @@ require_once dirname(__FILE__) . '/impl/BilingualDictionaryWithLongestMatchSearc
 require_once dirname(__FILE__) . '/impl/ConceptDictionaryClientImpl.php';
 require_once dirname(__FILE__) . '/impl/DependencyParserClientImpl.php';
 //require_once dirname(__FILE__).'/impl/DictionaryClientImpl.php';
+require_once dirname(__FILE__) . '/impl/KeyphraseExtractionClientImpl.php';
 require_once dirname(__FILE__) . '/impl/LanguageIdentificationClientImpl.php';
 //require_once dirname(__FILE__).'/impl/MetadataForParallelTextClientImpl.php';
 require_once dirname(__FILE__) . '/impl/MorphologicalAnalysisClientImpl.php';
@@ -33,8 +34,11 @@ require_once dirname(__FILE__) . '/impl/TextToSpeechClientImpl.php';
 require_once dirname(__FILE__) . '/impl/TranslationClientImpl.php';
 require_once dirname(__FILE__) . '/impl/TranslationSelectionClientImpl.php';
 require_once dirname(__FILE__) . '/impl/TranslationWithTemporalDictionaryClientImpl.php';
+require_once dirname(__FILE__) . '/impl/TranslationWithInternalDictionaryClientImpl.php';
 require_once dirname(__FILE__) . '/impl/DocumentTranslationClientImpl.php';
-
+require_once dirname(__FILE__) . '/impl/NamedEntityTaggingClientImpl.php';
+require_once dirname(__FILE__) . '/impl/TextSummarizationClientImpl.php';
+require_once dirname(__FILE__) . '/impl/MorphemesDependencyParserClientImpl.php';
 
 class ClientFactory
 {
@@ -55,6 +59,24 @@ class ClientFactory
     public static function createAdjacencyPairClient($url)
     {
         return self::setup(new AdjacencyPairClientImpl($url));
+    }
+
+    /*
+     * 文章要約サービスクライアントを作成する．
+     * @param $url endpoint url
+     */
+    public static function createTextSummarizationClient($url)
+    {
+        return self::setup(new TextSummarizationClientImpl($url));
+    }
+
+    /*
+     * タグ付サービスクライアントを作成する．
+     * @param $url endpoint url
+     */
+    public static function createNamedEntityTaggingClient($url)
+    {
+        return self::setup(new NamedEntityTaggingClientImpl($url));
     }
 
     /*
@@ -128,6 +150,14 @@ class ClientFactory
      */
     public static function createDictionaryClient($url)
     {
+    }
+
+    /*
+     * 特徴語抽出サービス用のクライアントを作成する。
+     */
+    public static function createKeyphraseExtractionClient($url)
+    {
+        return self::setup(new KeyphraseExtractionClientImpl($url));
     }
 
     /*
@@ -276,6 +306,22 @@ class ClientFactory
     public static function createTranslationWithTemporalDictionaryClient($url)
     {
         return self::setup(new TranslationWithTemporalDictionaryClientImpl($url));
+    }
+
+    /*
+    * ドメイン内部辞書を使った翻訳サービス用のクライアントを作成する。
+    */
+    public static function createTranslationWithInternalDictionaryClient($url)
+    {
+        return self::setup(new TranslationWithInternalDictionaryClientImpl($url));
+    }
+    
+    /*
+    * 形態素係り受け解析器のクライアントを作成する．
+    */
+    public static function createMorphemesDependencyParserClient($url)
+    {
+        return self::setup(new MorphemesDependencyParserClientImpl($url));
     }
 
     /*

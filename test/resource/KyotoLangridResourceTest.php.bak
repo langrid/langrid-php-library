@@ -24,7 +24,7 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
         $result = $client->search(
             Language::get($headLang), 
             Language::get($targetLang),
-            $text,
+            $text, 
             $mat
         );
         $this->assertEquals($answer,$result[0]->target);//2013/01/12 Nishimura テスト内容の変更のため
@@ -69,48 +69,11 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * @dataProvider compositeBilingualDictionaryWsdlProvider
-     */
-    //新規実装 2013/07/02 西村
-    public function testCompositeBilingualDictionaryResource($endpoint, $bindingsArray,$headLang, $targetLang, $text, $answer ,$mat = MatchingMethod::COMPLETE)
-    {
-        $client = ClientFactory::createBilingualDictionaryClient($endpoint);
-        foreach ($bindingsArray as $bindingPoint => $atomicService){
-          $client->addBindings(new BindingNode($bindingPoint, $atomicService));
-		}
-        $result = $client->search(
-            Language::get($headLang), 
-            Language::get($targetLang),
-            $text, 
-            $mat
-        );
-        $this->assertEquals($answer,$result[0]->targetWords[0]);
-    }
-    
-    /**
      * @dataProvider bilingualDictionaryWithLongestMatchSearchWsdlProvider
      */
     public function testBilingualDictionaryWithLongestMatchSearchResource($endpoint, $headLang, $targetLang, $morphemesArray, $answer)
     {
         $client = ClientFactory::createBilingualDictionaryWithLongestMatchSearchClient($endpoint);
-        $morphemes = array(new Morpheme($morphemesArray[0], $morphemesArray[1], $morphemesArray[2]));
-        $result = $client->searchLongestMatchingTerms(
-            Language::get($headLang),
-            Language::get($targetLang),
-            $morphemes
-        ); 
-        $this->assertEquals($answer,$result[0]->translation->targetWords[0]);
-    }
-    
-    /**
-     * @dataProvider compositeBilingualDictionaryWithLongestMatchSearchWsdlProvider
-     */
-    public function testCompositeBilingualDictionaryWithLongestMatchSearchResource($endpoint, $bindingsArray, $headLang, $targetLang, $morphemesArray, $answer)
-    {
-        $client = ClientFactory::createBilingualDictionaryWithLongestMatchSearchClient($endpoint);
-        foreach ($bindingsArray as $bindingPoint => $atomicService){
-          $client->addBindings(new BindingNode($bindingPoint, $atomicService));
-		}
         $morphemes = array(new Morpheme($morphemesArray[0], $morphemesArray[1], $morphemesArray[2]));
         $result = $client->searchLongestMatchingTerms(
             Language::get($headLang),
@@ -186,12 +149,9 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
         $result = $client->searchTemplates(Language::get($lang),$text,$mat,array($categoryNo));
         $this->assertEquals($answer,$result[0]->template);
     }
-
-    //Small adjustments 2013/06/05 Xun
-    /**
-     * @dataProvider textToSpeechWsdlProvider
-     */
-    public function testTextToSpeechResource($endpoint, $answer)
+    
+	//Small adjustments 2013/06/05 Xun
+    public function testTextToSpeechResource($endpoint,$answer)
     {
         $client = ClientFactory::createTextToSpeechClient($endpoint);
         $result = $client->getSupportedVoiceTypes();
@@ -228,6 +188,16 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($answer,$result);
     }
     
+    /**
+     * @dataProvider translationSelectionWsdlProvider
+     */
+    public function testTranslationSelectionResource()
+    {
+        $this->markTestIncomplete("未実装: composite service なので後回し");
+        $client = ClientFactory::createTranslationSelectionClient($endpoint);
+        $result = $client->translate($sourceLang, $targetLang, $source);
+    }
+
     
     /**
      * @dataProvider pictogramDictionaryWsdlProvider
@@ -301,48 +271,7 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
         $result = $client->translate(Language::get($sourceLang), Language::get($targetLang), $source);
         $this->assertEquals($answer,$result);
     }
-	
-	//2013/06/22 Xun Added
-	/**
-     * @dataProvider qualityEstimationWsdlProvider
-     */
-	public function testQualityEstimationResource($endpoint, $bindingsArray, $sourceLang, $targetLang, $source, $target , $answer)
-    {
-        $client = ClientFactory::createQualityEstimationClient($endpoint);
-        foreach ($bindingsArray as $bindingPoint => $atomicService){
-          $client->addBindings(new BindingNode($bindingPoint, $atomicService));
-		}
-        $result = $client->estimate(Language::get($sourceLang), Language::get($targetLang), $source, $target);
-        $this->assertEquals($answer,$result);
-    }
-	
-	//2013/06/24 Xun Added	 	
-	/**
-     * @dataProvider backTranslationWsdlProvider
-     */
-    public function testBackTranslationResource($endpoint, $source, $intermediate, $text)
-    {
-            $client = ClientFactory::createBackTranslationClient($endpoint);
-            $client->addBindings(new BindingNode("BackwardTranslationPL","KyotoUJServer"));
-            $client->addBindings(new BindingNode("FowwardTranslationPL","KyotoUJServer"));
-            $result = $client->backTranslate(Language::get($source), Language::get($intermediate), $text);
-            $this->assertEquals($text,$result->target);
-    }
-	
-	//2013/06/24 Xun Added
-	/**
-     * @dataProvider translationSelectionWsdlProvider
-     */
-	public function testTranslationSelectionResource($endpoint, $bindingsArray, $sourceLang, $targetLang, $source, $answer)
-    {
-        $client = ClientFactory::createTranslationSelectionClient($endpoint);
-        foreach ($bindingsArray as $bindingPoint => $atomicService){
-          $client->addBindings(new BindingNode($bindingPoint, $atomicService));
-		}
-        $result = $client->select(Language::get($sourceLang), Language::get($targetLang), $source);
-        $this->assertEquals($answer,$result);
-    }
-	
+    
     // 
     // DataProvider
     // 
@@ -396,19 +325,9 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
         return $this->getEndpointUrl("BilingualDictionary");
     }
     
-    public function compositeBilingualDictionaryWsdlProvider()
-    {
-        return $this->getEndpointUrl("CompositeBilingualDictionary");
-    }
-    
     public function bilingualDictionaryWithLongestMatchSearchWsdlProvider()
     {
         return $this->getEndpointUrl("BilingualDictionaryWithLongestMatchSearch");
-    }
-    
-    public function compositeBilingualDictionaryWithLongestMatchSearchWsdlProvider()
-    {
-        return $this->getEndpointUrl("CompositeBilingualDictionaryWithLongestMatchSearch");
     }
     
     public function dependencyParserWsdlProvider()
@@ -476,13 +395,4 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
         return $this->getEndpointUrl("PictogramDictionary");
     }
     
-    public function qualityEstimationWsdlProvider()
-    {
-        return $this->getEndpointUrl("QualityEstimation");
-    }
-	
-	public function backTranslationWsdlProvider()
-    {
-        return $this->getEndpointUrl("BackTranslation");
-    }
 }
