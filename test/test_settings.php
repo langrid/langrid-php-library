@@ -8,14 +8,17 @@
  */
 require_once dirname(__FILE__).'/../MultiLanguageStudio.php';
 
+include("variables.php");
+
+
 // Default UserId for using Service Grid
-ClientFactory::setDefaultUserId('');
+ClientFactory::setDefaultUserId($userid);
 
 // Default Password for using Service Grid
-ClientFactory::setDefaultPassword('');
+ClientFactory::setDefaultPassword($passwd);
 
 // Default proxy for access to the internet.
-ClientFactory::setProxy('proxy.kuins.net','8080');
+ClientFactory::setProxy($proxyServer,$proxyPort);
 
 
 define('SERVICE_GRID_BASE_URL', 'http://langrid.org/service_manager/wsdl/');
