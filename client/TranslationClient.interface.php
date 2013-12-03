@@ -18,4 +18,5 @@ interface TranslationClient extends ServiceClient {
      * @return String 翻訳結果
      */
     public function translate(Language $sourceLang, Language $targetLang, /*String*/ $source);
+    
 }

@@ -8,8 +8,10 @@
  */
 require_once 'models/LocalServiceAllTests.php';
 require_once 'bridge/BridgeAllTests.php';
-require_once 'resource/LanguageResourceManagerTest.php';;
+require_once 'resource/LanguageResourceManagerTest.php';
 require_once 'resource/KyotoLangridResourceTest.php';
+require_once 'resource/KyotoLangridResourceOtherServicesTest.php';
+require_once '../commons/Morpheme.php';
 
 class AllTests
 {
@@ -20,6 +22,7 @@ class AllTests
         $suite->addTest(LocalServiceAllTests::suite());
         $suite->addTest(BridgeAllTests::suite());
         $suite->addTestSuite("KyotoLangridResourceTest");
+        $suite->addTestSuite("KyotoLangridResourceOtherServicesTest");
         
         return $suite;
     }

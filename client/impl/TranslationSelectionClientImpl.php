@@ -11,7 +11,7 @@ require_once dirname(__FILE__).'/../TranslationSelectionClient.interface.php';
 
 class TranslationSelectionClientImpl extends ServiceClientImpl implements TranslationSelectionClient
 {
-    public function translate(Language $sourceLang, Language $targetLang, /*String*/ $source)
+    public function select(Language $sourceLang, Language $targetLang, /*String*/ $source)
     {
         return $this->invoke(__FUNCTION__ ,array(
             'sourceLang' => $sourceLang,

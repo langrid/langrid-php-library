@@ -17,6 +17,6 @@ interface TranslationSelectionClient extends ServiceClient {
     * @param source: 翻訳する文字列
     * @return String 翻訳結果
     */
-    public function translate(Language $sourceLang, Language $targetLang, /*String*/ $source);
+    public function select(Language $sourceLang, Language $targetLang, /*String*/ $source);
 
 }
