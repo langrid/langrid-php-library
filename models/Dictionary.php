@@ -173,7 +173,7 @@ class Dictionary extends MLSModel
             return preg_match("/^$headWord.*/i", $bilingualWordPair[$headLang]);
         } else if ($upMatchingMethod === "SUFFIX") {
             return preg_match("/.*$headWord$/i", $bilingualWordPair[$headLang]);
-        } else if ($upMatchingMethod === "REGEXP") {
+        } else if ($upMatchingMethod === "REGEX") {
             return preg_match("/$headWord/i", $bilingualWordPair[$headLang]);
         } else {
             // Should throws an exception
@@ -356,7 +356,7 @@ class Dictionary extends MLSModel
     public static function getSupportedMatchingMethods()
     {
         return array(
-            'COMPLETE','PARTIAL', 'PREFIX', 'SUFFIX', 'REGEXP'
+            'COMPLETE','PARTIAL', 'PREFIX', 'SUFFIX', 'REGEX'
         );
     }
 }
