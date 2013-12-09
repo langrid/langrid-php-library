@@ -7,12 +7,11 @@
  * To change this template use File | Settings | File Templates.
  */
 
-define('SERVICE_GRID_BASE_URL', 'http://langrid.nict.go.jp/service_manager/wsdl/');
-
+define('SERVICE_GRID_BASE_URL', 'http://langrid.org/service_manager/wsdl/');
 
 class ServiceUrlResolver
 {
-    const DEFAULT_SERVICE_GRID_BASE_URL = 'http://langrid.nict.go.jp/service_manager/wsdl/';
+    const DEFAULT_SERVICE_GRID_BASE_URL = 'http://langrid.org/service_manager/wsdl/';
 
     public static function resolveByServiceId($serviceId)
     {
