@@ -23,4 +23,3 @@ require_once dirname(__FILE__).'/lib/php-activerecord/ActiveRecord.php';
 // config/service_settings.sample.php is a sample file of settings.
 require_once dirname(__FILE__).'/config/service_settings.php';
 
-?>
