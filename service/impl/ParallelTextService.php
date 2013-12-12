@@ -1,10 +1,8 @@
 <?php
 
 require_once('SOAP/Type/dateTime.php');
+require_once dirname(__FILE__).'/../ParallelTextService.interface.php';
 
-require_once (dirname(__FILE__) . '/../MultiLanguageStudio.php');
-require_once (dirname(__FILE__) . '/../commons/Translation.php');
-require_once (dirname(__FILE__) . '/../commons/SOAP/TranslationSOAP.php');
 
 class ParallelTextSOAPServer
 {

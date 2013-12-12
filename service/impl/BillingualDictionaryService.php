@@ -1,11 +1,7 @@
 <?php
 
 require_once('SOAP/Type/dateTime.php');
-
-require_once (dirname(__FILE__) . '/../MultiLanguageStudio.php');
-require_once (dirname(__FILE__) . '/../commons/Translation.php');
-require_once (dirname(__FILE__) . '/../commons/SOAP/TranslationWithPositionSOAP.php');
-require_once (dirname(__FILE__) . '/../commons/SOAP/TranslationSOAP.php');
+require_once dirname(__FILE__).'/../BillingualDictionaryService.interface.php';
 
 class BillingualDictionarySOAPServer
 {
@@ -152,7 +148,6 @@ class BillingualDictionaryService
     public function search($headLang, $targetLang, $headWord, $matchingMethod)
     {
         //error_log('DEBUG: search dic id=' . $this->dictionaryName);
-        //error_log('DEBUG: search dic id=' . $this->dictionaryName);
         //error_log('DEBUG: search lang=' . $headLang);
         //error_log('DEBUG: search word=' . $headWord);
 
@@ -180,6 +175,8 @@ class BillingualDictionaryService
         $positionArray = array();
         //$dictionary = Dictionary::find($this->dictionaryName);
         $dictionary = Dictionary::find('first', array('conditions' => array('name = ?', $this->dictionaryName)));
+        //$this->dump($headLang);
+        //$this->dump($targetLang);
         //$this->dump($morphemes);
 
         for ($i = 0; $i < count($morphemes); $i++) {

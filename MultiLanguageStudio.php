@@ -17,7 +17,7 @@ require_once dirname(__FILE__).'/commons/BoundValueParameter.php';
 require_once dirname(__FILE__).'/commons/BindingNode.php';
 require_once dirname(__FILE__).'/commons/LangridException.php';
 require_once dirname(__FILE__).'/commons/MLSException.php';
-
+require_once dirname(__FILE__).'/service/ServiceFactory.php';
 require_once dirname(__FILE__).'/lib/php-activerecord/ActiveRecord.php';
 
-
+?>
