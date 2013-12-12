@@ -20,4 +20,7 @@ require_once dirname(__FILE__).'/commons/MLSException.php';
 require_once dirname(__FILE__).'/service/ServiceFactory.php';
 require_once dirname(__FILE__).'/lib/php-activerecord/ActiveRecord.php';
 
+// config/service_settings.sample.php is a sample file of settings.
+require_once dirname(__FILE__).'/config/service_settings.php';
+
 ?>
