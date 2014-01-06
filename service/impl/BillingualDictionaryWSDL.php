@@ -19,7 +19,7 @@ class BillingualDictionaryWSDL
     {
         error_log("DEBUG: " . $this->endpointUrl);
         try {
-            $templatePath = dirname(__FILE__) . '/templates/BilingualDictionary.xml.template';
+            $templatePath = dirname(__FILE__) . '/../templates/BilingualDictionary.xml.template';
             if (!file_exists($templatePath)) {
                 throw new Exception('process failed..');
             }
