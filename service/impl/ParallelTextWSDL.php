@@ -20,7 +20,7 @@ class ParallelTextWSDL
     {
         error_log("DEBUG: " . $this->endpointUrl);
         try {
-            $templatePath = dirname(__FILE__) . '/templates/ParallelText.xml.template';
+            $templatePath = dirname(__FILE__) . '/../templates/ParallelText.xml.template';
             if (!file_exists($templatePath)) {
                 throw new Exception('process failed..');
             }
