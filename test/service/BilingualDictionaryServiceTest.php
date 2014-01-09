@@ -15,8 +15,8 @@ class BilingualDictionaryServiceTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $url = 'http://www.langrid.org/widget/server/DictionaryServices/5.3/wsdl/billingualdictionary_wsdl.php?serviceId=Yuu_Nakajima_Dic';
-        //$url = 'http://langrid.org/tools/jen/modules/dictionary/services/wsdl/billingualdictionary_wsdl.php?serviceId=JEN_Unified_Dictionary';
+        $url = 'http://www.langrid.org/widget/server/DictionaryServices/5.3/wsdl/bilingualdictionary_wsdl.php?serviceId=Yuu_Nakajima_Dic';
+        //$url = 'http://langrid.org/tools/jen/modules/dictionary/services/wsdl/bilingualdictionary_wsdl.php?serviceId=JEN_Unified_Dictionary';
         $this->client = ClientFactory::createBilingualDictionaryClient($url);
     }
 

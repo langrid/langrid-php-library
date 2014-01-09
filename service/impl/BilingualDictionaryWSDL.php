@@ -1,5 +1,5 @@
 <?php
-class BillingualDictionaryWSDL
+class BilingualDictionaryWSDL
 {
 
     private $endpointUrl;
