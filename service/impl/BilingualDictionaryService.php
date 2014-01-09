@@ -175,9 +175,9 @@ class BilingualDictionaryService
         $positionArray = array();
         //$dictionary = Dictionary::find($this->dictionaryName);
         $dictionary = Dictionary::find('first', array('conditions' => array('name = ?', $this->dictionaryName)));
-        $this->dump($headLang);
-        $this->dump($targetLang);
-        $this->dump($morphemes);
+        //$this->dump($headLang);
+        //$this->dump($targetLang);
+        //$this->dump($morphemes);
         //syslog(LOG_NOTICE, print_r($morphemes, true));
         for ($i = 0; $i < count($morphemes); $i++) {
             $word = $morphemes[$i]->word;
@@ -219,7 +219,7 @@ class BilingualDictionaryService
         //error_log("DEBUG: END Longest matching search.");
         //syslog(LOG_NOTICE, print_r($result, true));
         //error_log(print_r($result, true));
-        $this->dump($result);
+        //$this->dump($result);
         return $result;
 
     }
