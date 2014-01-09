@@ -1,9 +1,9 @@
 <?php
 
 require_once('SOAP/Type/dateTime.php');
-require_once dirname(__FILE__).'/../BillingualDictionaryService.interface.php';
+require_once dirname(__FILE__).'/../BilingualDictionaryService.interface.php';
 
-class BillingualDictionarySOAPServer
+class BilingualDictionarySOAPServer
 {
     private $server;
 
@@ -15,7 +15,7 @@ class BillingualDictionarySOAPServer
         header("Content-type: text/xml; charset=UTF-8");
         $this->server = new SOAP_Server();
         $this->server->addObjectMap(
-            new BillingualDictionaryService($dictionaryName)
+            new BilingualDictionaryService($dictionaryName)
             , 'http://bilingualdictionary.ws_1_2.wrapper.langrid.nict.go.jp'
         );
         //error_log("DEBUG: the SOAP Server is started.");
@@ -29,7 +29,7 @@ class BillingualDictionarySOAPServer
 
 }
 
-class BillingualDictionaryService
+class BilingualDictionaryService
 {
     private $dictionaryName;
 
@@ -164,7 +164,7 @@ class BillingualDictionaryService
 
         $result = new SOAP_Value('searchReturn', 'searchReturn', $soap_translations);
         //error_log(print_r($result, true));
-        
+        syslog(LOG_NOTICE, print_r($result, true));
         return $result;
     }
 
@@ -175,10 +175,10 @@ class BillingualDictionaryService
         $positionArray = array();
         //$dictionary = Dictionary::find($this->dictionaryName);
         $dictionary = Dictionary::find('first', array('conditions' => array('name = ?', $this->dictionaryName)));
-        //$this->dump($headLang);
-        //$this->dump($targetLang);
-        //$this->dump($morphemes);
-
+        $this->dump($headLang);
+        $this->dump($targetLang);
+        $this->dump($morphemes);
+        //syslog(LOG_NOTICE, print_r($morphemes, true));
         for ($i = 0; $i < count($morphemes); $i++) {
             $word = $morphemes[$i]->word;
 
@@ -217,6 +217,9 @@ class BillingualDictionaryService
         //$this->dump($positionArray);
         $result = new SOAP_Value('searchLongestMatchingTermsReturn', 'searchLongestMatchingTermsReturn', $positionArray);
         //error_log("DEBUG: END Longest matching search.");
+        //syslog(LOG_NOTICE, print_r($result, true));
+        //error_log(print_r($result, true));
+        $this->dump($result);
         return $result;
 
     }
@@ -228,6 +231,7 @@ class BillingualDictionaryService
         $contents = ob_get_contents();
         ob_end_clean();
         error_log("DEBUG: " . $contents);
+        //syslog(LOG_NOTICE, $contents);
     }
 
     private function getWordSeparator($lang)
