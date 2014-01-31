@@ -324,7 +324,7 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
     {
             $client = ClientFactory::createBackTranslationClient($endpoint);
             $client->addBindings(new BindingNode("BackwardTranslationPL","KyotoUJServer"));
-            $client->addBindings(new BindingNode("FowwardTranslationPL","KyotoUJServer"));
+            $client->addBindings(new BindingNode("ForwardTranslationPL","KyotoUJServer"));
             $result = $client->backTranslate(Language::get($source), Language::get($intermediate), $text);
             $this->assertEquals($text,$result->target);
     }
