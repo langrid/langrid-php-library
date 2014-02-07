@@ -199,18 +199,18 @@ class ServiceList
                         'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Symptom',
                         'en',
                         'ja',
-                        'Are you okay?',
-                        '大丈夫ですか？',
-                        MatchingMethod::COMPLETE,
+                        'constipation',
+                        '便秘',
+                        MatchingMethod::PARTIAL,
                 ),
                 // 2013/06/12 Sasaki Added
                 'kyoto1.langrid:MICA_Medicine_Bag' => array(
                         'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Medicine_Bag',
                         'en',
                         'ja',
-                        'Are you okay?',
-                        '大丈夫ですか？',
-                        MatchingMethod::COMPLETE,
+                        'dosage',
+                        '＿時間以上間隔をあけて服用して下さい',
+                        MatchingMethod::PARTIAL,
                  ),
             ),
                 
@@ -393,14 +393,16 @@ class ServiceList
                         '(หิมะ) ตก'
                         ),
                 //2013/06/12 Sasaki Add
-                'kyoto1.langrid:Nii' => array(
-                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Nii',
-                        'en',
-                        'ja',
-                        'snow',
-                        '雪',
-                        MatchingMethod::COMPLETE
-                ),  
+// Because Nii service is suspended, this testing is temporary commented
+// Proper handling of such case is to check the status of the service before it is tested
+//                'kyoto1.langrid:Nii' => array(
+//                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Nii',
+//                        'en',
+//                        'ja',
+//                        'snow',
+//                        '雪',
+//                        MatchingMethod::COMPLETE
+//                ),  
             ),
             
             'CompositeBilingualDictionary' => array(
