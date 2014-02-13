@@ -715,8 +715,8 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                 'kyoto1.langrid:YMCExpertAnswerParallelText' => array(
                      "http://langrid.org/service_manager/wsdl/kyoto1.langrid:YMCExpertAnswerParallelText", 
                      "en", 
-                     "test",
-                     'Latest time of application means days required for agricultural chemicals in use before harvest. Make sure to follow latest time of application not to give any harm on human and living things in soil. Latest time of application is stated on labels of agricultural chemicals, so check it steadily before use.',
+                     "Japanese paddy",
+                     "In a Japanese paddy, there used to be insects such as a giant water bug, a mayfly, a larva of dragonfly, a firefly, a diving beetle, a water strider, a larva of a mosquito and a caddis-fly. The number of the insects decreases nowadays.",
                      1
                 )
             ), 
@@ -958,10 +958,10 @@ Atlantis: The Lost Empire premiered at the El Capitan Theatre in Hollywood, Cali
                 'kyoto1.langrid:QualityEstimationBasedOnBackTranslation' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:QualityEstimationBasedOnBackTranslation', 
                     array("TranslationPL"  => "Translation","SimilarityCalculationPL" => "SimilarityCalculation"),
-                    'en',
                     'ja',
-                    'hello',
-                    'こんにちは',
+                    'en',
+                    'Thank you',
+                    'ありがとう',
                     '1.0',
                 ),
             ),
@@ -971,7 +971,7 @@ Atlantis: The Lost Empire premiered at the El Capitan Theatre in Hollywood, Cali
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:BackTranslation', 
                     'en', 
                     'ja', 
-                    'hello',
+                    'Thank you',
                 ),
             ),
             
