@@ -212,6 +212,52 @@ class ServiceList
                         '＿時間以上間隔をあけて服用して下さい',
                         MatchingMethod::PARTIAL,
                  ),
+                // 2014/04/10 Otani Added
+                'kyoto1.langrid:MICA_Interview_Sheet' => array(
+                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Interview_Sheet',
+                        'en',
+                        'ja',
+                        'heart',
+                        '心臓病',
+                        MatchingMethod::PARTIAL,
+                 ),
+                // 2014/04/10 Otani Added
+                'kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Hospital' => array(
+                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Hospital',
+                        'en',
+                        'ja',
+                        'Psychiatry',
+                        '精神科',
+                        MatchingMethod::PARTIAL,
+                 ),
+                // 2014/04/10 Otani Added
+                'kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Pharmacy' => array(
+                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Pharmacy',
+                        'en',
+                        'ja',
+                        'Headache',
+                        '頭痛',
+                        MatchingMethod::PARTIAL,
+                 ),
+                // 2014/04/10 Otani Added
+                'kyoto1.langrid:OsakaPrefectureCareerGuidanceParalleltext' => array(
+                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:OsakaPrefectureCareerGuidanceParalleltext',
+                        'ja',
+                        'zh',
+                        '入学試験',
+                        '入学考试',
+                        MatchingMethod::PARTIAL,
+                 ),
+                // 2014/04/10 Otani Added
+                'kyoto1.langrid:SaitamaPrefectureJapaneseStudyParalleltext' => array(
+                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:SaitamaPrefectureJapaneseStudyParalleltext',
+                        'ja',
+                        'zh',
+                        '入学式',
+                        '入学典礼',
+                        MatchingMethod::PARTIAL,
+                 ),
+
             ),
                 
 			// $endpoint, $lang, $text, $answer
@@ -308,6 +354,14 @@ class ServiceList
                     'これはテストです．', 
                     'これ',
                 ),
+            //2014/05/08 Otani Add
+                'kyoto1.langrid:VLSPPOSTaggerService' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:VLSPPOSTaggerService',
+                    'vi',
+                    'Đây là một thử nghiệm',
+                    'Đây',
+                ),
+
             ),
             
             // $endpoint, $lang, $text, $answer, $mat(デフォルト MatchingMethod::COMPLETE)
@@ -337,6 +391,14 @@ class ServiceList
                      'en', 
                      'test',
                      'a hard outer covering as of some amoebas and sea urchins',
+                     MatchingMethod::COMPLETE,
+                 ),
+            //2014/04/10 Otani Added
+                 'kyoto1.langrid:EDRConceptDictionary' => array(
+                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:EDRConceptDictionary',
+                     'en', 
+                     'I',
+                     'the 9th letter of the English alphabet',
                      MatchingMethod::COMPLETE,
                  ),
             ),
@@ -523,6 +585,30 @@ class ServiceList
                     'ja',
                     Array('food','food','noun'),
                     '食材'
+                ),
+                // 2014/04/10 Otani Added
+                'kyoto1.langrid:mief_miekonihongo_dictionary' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:mief_miekonihongo_dictionary',
+                    'ja',
+                    'es',
+                    Array('うみ','うみ','noun'),
+                    'mar'
+                ),
+                // 2014/04/10 Otani Added
+                'kyoto1.langrid:NiiLocal' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:NiiLocal',
+                    'en',
+                    'ja',
+                    Array('sea','sea','noun'),
+                    '一般海域'
+                ),
+                // 2014/04/10 Otani Added
+                'kyoto1.langrid:RitsumeikanDictionary' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:RitsumeikanDictionary',
+                    'en',
+                    'ja',
+                    Array('academics','academics','noun'),
+                    '学修'
                 ),
             ),
             
