@@ -244,8 +244,8 @@ class ServiceList
                         'http://langrid.org/service_manager/wsdl/kyoto1.langrid:OsakaPrefectureCareerGuidanceParalleltext',
                         'ja',
                         'zh',
-                        '入学試験',
-                        '入学考试',
+                        '後期入学者選抜',
+                        '后期入学者选拔',
                         MatchingMethod::PARTIAL,
                  ),
                 // 2014/04/10 Otani Added
