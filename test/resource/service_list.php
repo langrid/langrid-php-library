@@ -969,7 +969,7 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                             'http://langrid.org/service_manager/wsdl/kyoto1.langrid:BackTranslation',
                             'ja',
                             'en',
-                            'こんにちは',
+                            'こんにちは。',
                             ),
             ),
             
@@ -1051,7 +1051,7 @@ Atlantis: The Lost Empire premiered at the El Capitan Theatre in Hollywood, Cali
                     '1.0',
                 ),
             ),
-            //2013/06/22 Xun Added	            
+           /* //2013/06/22 Xun Added	            
             'BackTranslation' => array(
                 'kyoto1.langrid:BackTranslation' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:BackTranslation', 
@@ -1059,7 +1059,7 @@ Atlantis: The Lost Empire premiered at the El Capitan Theatre in Hollywood, Cali
                     'ja', 
                     'Thank you',
                 ),
-            ),
+            ),*/
             
             //2013/06/22 Xun Added	            
             'TranslationSelection' => array(
