@@ -6,7 +6,7 @@
  * Time: 14:33
  * To change this template use File | Settings | File Templates.
  */
-require_once dirname(__FILE__).'/../MultiLanguageStudio.php';
+require_once dirname(__FILE__).'/../MultilingualStudio.php';
 
 include("variables.php");
 

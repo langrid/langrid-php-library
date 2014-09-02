@@ -6,7 +6,7 @@
  * Time: 15:55
  * To change this template use File | Settings | File Templates.
  */
-require_once dirname(__FILE__) . '/../../MultiLanguageStudio.php';
+require_once dirname(__FILE__) . '/../../MultilingualStudio.php';
 require_once dirname(__FILE__) . '/ServiceUrlResolver.php';
 
 class AbstractService
