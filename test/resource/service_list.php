@@ -885,7 +885,7 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '你好',
+                    '您好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:ThreeHopTranslationEnJa' => array(
@@ -894,7 +894,7 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '你好',
+                    '您好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:ThreeHopTranslationJaEn' => array(
@@ -903,7 +903,7 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '你好',
+                    '您好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TranslationWithParallelText' => array(
@@ -912,7 +912,7 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '你好',
+                    '您好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TwoHopTranslationEn' => array(
@@ -921,7 +921,7 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '你好',
+                    '您好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TwoHopTranslationJa' => array(
@@ -930,7 +930,7 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '你好',
+                    '您好',
                 ),
             ),
            
