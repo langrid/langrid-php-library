@@ -71,21 +71,21 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider compositeBilingualDictionaryWsdlProvider
      */
-    //新規実装 2013/07/02 西村
-    public function testCompositeBilingualDictionaryResource($endpoint, $bindingsArray,$headLang, $targetLang, $text, $answer ,$mat = MatchingMethod::COMPLETE)
-    {
-        $client = ClientFactory::createBilingualDictionaryClient($endpoint);
-        foreach ($bindingsArray as $bindingPoint => $atomicService){
-          $client->addBindings(new BindingNode($bindingPoint, $atomicService));
-		}
-        $result = $client->search(
-            Language::get($headLang), 
-            Language::get($targetLang),
-            $text, 
-            $mat
-        );
-        $this->assertEquals($answer,$result[0]->targetWords[0]);
-    }
+//    //新規実装 2013/07/02 西村
+//    public function testCompositeBilingualDictionaryResource($endpoint, $bindingsArray,$headLang, $targetLang, $text, $answer ,$mat = MatchingMethod::COMPLETE)
+//    {
+//        $client = ClientFactory::createBilingualDictionaryClient($endpoint);
+//        foreach ($bindingsArray as $bindingPoint => $atomicService){
+//          $client->addBindings(new BindingNode($bindingPoint, $atomicService));
+//		}
+//        $result = $client->search(
+//            Language::get($headLang), 
+//            Language::get($targetLang),
+//            $text, 
+//            $mat
+//        );
+//        $this->assertEquals($answer,$result[0]->targetWords[0]);
+//    }
     
     /**
      * @dataProvider bilingualDictionaryWithLongestMatchSearchWsdlProvider

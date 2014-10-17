@@ -133,41 +133,41 @@ class KyotoLangridResourceOtherServicesTest extends PHPUnit_Framework_TestCase
 			$this->assertNotEquals(0, count($result->results), "No result has returned.");
 		}
 
-		public function testAsyncTranslationResource()
-		{
-			$wsdl = 'http://langrid.org/service_manager/wsdl/kyoto1.langrid:AsyncTranslation';
-			$binding = '[{
-				            "children":[]
-						                ,"invocationName":"TranslationPL"
-								            ,"serviceId":"KyotoUJserver"
-									              }
-		        ]';
-			$params = array(
-				'sourceLang' => 'ja',
-				'targetLang' => 'en',
-				'sources' => array('テスト')
-			);
-			$this->functionForAsyncTranslation($wsdl, $binding, $params);
-		}
+//		public function testAsyncTranslationResource()
+//		{
+//			$wsdl = 'http://langrid.org/service_manager/wsdl/kyoto1.langrid:AsyncTranslation';
+//			$binding = '[{
+//				            "children":[]
+//						                ,"invocationName":"TranslationPL"
+//								            ,"serviceId":"KyotoUJserver"
+//									              }
+//		        ]';
+//			$params = array(
+//				'sourceLang' => 'ja',
+//				'targetLang' => 'en',
+//				'sources' => array('テスト')
+//			);
+//			$this->functionForAsyncTranslation($wsdl, $binding, $params);
+//		}
 
-		public function testAsyncTranslationCombinedWithTemporalDictionaryResource()
-		{
-			$wsdl = 'http://langrid.org/service_manager/wsdl/kyoto1.langrid:AsyncTranslationCombinedWithTemporalDictionary';
-			$binding = '[{
-				            "children":[]
-						                ,"invocationName":"TranslationWithTemporalDictionaryPL"
-								            ,"serviceId":"BestTranslationSelectionWithTemporalDictionary"
-									              }
-		        ]';
-			$params = array(
-				'sourceLang' => 'ja',
-				'targetLang' => 'en',
-				'sources' => array('テスト'),
-				'temporalDict' => array(array('headWord'=>'テスト','targetWords'=>array('testDic'))),
-				'dictTargetLang' => 'en'
-			);
-			$this->functionForAsyncTranslation($wsdl, $binding, $params);
-		}
+//		public function testAsyncTranslationCombinedWithTemporalDictionaryResource()
+//		{
+//			$wsdl = 'http://langrid.org/service_manager/wsdl/kyoto1.langrid:AsyncTranslationCombinedWithTemporalDictionary';
+//			$binding = '[{
+//				            "children":[]
+//						                ,"invocationName":"TranslationWithTemporalDictionaryPL"
+//								            ,"serviceId":"BestTranslationSelectionWithTemporalDictionary"
+//									              }
+//		        ]';
+//			$params = array(
+//				'sourceLang' => 'ja',
+//				'targetLang' => 'en',
+//				'sources' => array('テスト'),
+//				'temporalDict' => array(array('headWord'=>'テスト','targetWords'=>array('testDic'))),
+//				'dictTargetLang' => 'en'
+//			);
+//			$this->functionForAsyncTranslation($wsdl, $binding, $params);
+//		}
 
 		private function functionForWordTranslation($wsdl, $params){
 			$client = $this->getClient($wsdl);
@@ -212,37 +212,37 @@ class KyotoLangridResourceOtherServicesTest extends PHPUnit_Framework_TestCase
 			$this->assertNotEquals("", "".$result->data, "No result has returned.");
 		}
 
-		public function testWordTranslationResource()
-		{
-			$wsdl = 'http://langrid.org/service_manager/wsdl/kyoto1.langrid:WordTranslation';
-			$wordFileName = dirname(__FILE__).'/word_test_file.doc';
-			$fp = fopen($wordFileName, "r");
-			$wordFile = base64_encode(fread($fp, filesize($wordFileName)));
-			fclose($fp);
-			$wordValue = new SOAP_Value('data', 'base64Binary', $wordFile);
-			$params = array(
-				'sourceLang' => 'ja',
-				'targetLang' => 'en',
-				'source' => array($wordValue, 'mimeType' => 'application/msword'),
-			);
-			$this->functionForWordTranslation($wsdl, $params);
-		}
+//		public function testWordTranslationResource()
+//		{
+//			$wsdl = 'http://langrid.org/service_manager/wsdl/kyoto1.langrid:WordTranslation';
+//			$wordFileName = dirname(__FILE__).'/word_test_file.doc';
+//			$fp = fopen($wordFileName, "r");
+//			$wordFile = base64_encode(fread($fp, filesize($wordFileName)));
+//			fclose($fp);
+//			$wordValue = new SOAP_Value('data', 'base64Binary', $wordFile);
+//			$params = array(
+//				'sourceLang' => 'ja',
+//				'targetLang' => 'en',
+//				'source' => array($wordValue, 'mimeType' => 'application/msword'),
+//			);
+//			$this->functionForWordTranslation($wsdl, $params);
+//		}
 
-		public function testWordTranslationResourceWithTemporalDictionary()
-		{
-			$wsdl = 'http://langrid.org/service_manager/wsdl/kyoto1.langrid:WordTranslationWithTemporalDictionary';
-			$wordFileName = dirname(__FILE__).'/word_test_file.doc';
-			$fp = fopen($wordFileName, "r");
-			$wordFile = base64_encode(fread($fp, filesize($wordFileName)));
-			fclose($fp);
-			$wordValue = new SOAP_Value('data', 'base64Binary', $wordFile);
-			$params = array(
-				'sourceLang' => 'ja',
-				'targetLang' => 'en',
-				'source' => array($wordValue, 'mimeType' => 'application/msword'),
-				'temporalDict' => array(array('headWord'=>'テスト','targetWords'=>array('testDic'))),
-				'dictTargetLang' => 'en'
-			);
-			$this->functionForWordTranslation($wsdl, $params);
-		}
+//		public function testWordTranslationResourceWithTemporalDictionary()
+//		{
+//			$wsdl = 'http://langrid.org/service_manager/wsdl/kyoto1.langrid:WordTranslationWithTemporalDictionary';
+//			$wordFileName = dirname(__FILE__).'/word_test_file.doc';
+//			$fp = fopen($wordFileName, "r");
+//			$wordFile = base64_encode(fread($fp, filesize($wordFileName)));
+//			fclose($fp);
+//			$wordValue = new SOAP_Value('data', 'base64Binary', $wordFile);
+//			$params = array(
+//				'sourceLang' => 'ja',
+//				'targetLang' => 'en',
+//				'source' => array($wordValue, 'mimeType' => 'application/msword'),
+//				'temporalDict' => array(array('headWord'=>'テスト','targetWords'=>array('testDic'))),
+//				'dictTargetLang' => 'en'
+//			);
+//			$this->functionForWordTranslation($wsdl, $params);
+//		}
 }
