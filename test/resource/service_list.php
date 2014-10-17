@@ -1083,7 +1083,7 @@ Atlantis: The Lost Empire premiered at the El Capitan Theatre in Hollywood, Cali
             'QualityEstimation' => array(
                 'kyoto1.langrid:QualityEstimationBasedOnBackTranslation' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:QualityEstimationBasedOnBackTranslation', 
-                    array("TranslationPL"  => "KyotoUJServer","SimilarityCalculationPL" => "SimilarityCalculation"),
+                    array("TranslationPL"  => "KyotoUJServer","SimilarityCalculationPL" => "BLEU"),
                     'en',
                     'ja',
                     'Hello',
@@ -1105,7 +1105,7 @@ Atlantis: The Lost Empire premiered at the El Capitan Theatre in Hollywood, Cali
             'TranslationSelection' => array(
                 'kyoto1.langrid:BestTranslationSelectionUsingQualityEstimationWithAllResults' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:BestTranslationSelectionUsingQualityEstimationWithAllResults', 
-                    array("QualityEstimationPL"  => "TranslationPL3","TranslationPL4" => "TranslationPL5", "TranslationPL2" => "TranslationPL1"),
+                    array("QualityEstimationPL"  => "QualityEstimationBasedOnBackTranslation","TranslationPL4" => "TranslationPL5", "TranslationPL2" => "TranslationPL1"),
                     'ja', 
                     'en', 
                     '今日はいい天気ですね', 
