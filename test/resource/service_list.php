@@ -467,22 +467,22 @@ class ServiceList
 //                ),  
             ),
             
-            'CompositeBilingualDictionary' => array(
-            //2013/07/02 Nishimura Add
-                'kyoto1.langrid:BilingualDictionaryCrossSearch' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:BilingualDictionaryCrossSearch', 
-                    array(
-            "BilingualDictionaryPL1" => "Lsd", 
-            "BilingualDictionaryPL2" => "gcn_schoolwordbook_dictionary", 
-            "BilingualDictionaryPL3" => "NaturalDisasters", 
-            "BilingualDictionaryPL4" => "KyotoTourismDictionary", 
-            "BilingualDictionaryPL5" => "lexitron-dict-public"),
-                    'en',
-                    'ja',
-                    'test',
-                    'テスト'
-                ),
-            ),
+//            'CompositeBilingualDictionary' => array(
+//            //2013/07/02 Nishimura Add
+//                'kyoto1.langrid:BilingualDictionaryCrossSearch' => array(
+//                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:BilingualDictionaryCrossSearch', 
+//                    array(
+//            "BilingualDictionaryPL1" => "Lsd", 
+//            "BilingualDictionaryPL2" => "gcn_schoolwordbook_dictionary", 
+//            "BilingualDictionaryPL3" => "NaturalDisasters", 
+//            "BilingualDictionaryPL4" => "KyotoTourismDictionary", 
+//            "BilingualDictionaryPL5" => "lexitron-dict-public"),
+//                    'en',
+//                    'ja',
+//                    'test',
+//                    'テスト'
+//                ),
+//            ),
             
             'BilingualDictionaryWithLongestMatchSearch' => array(
                 'kyoto1.langrid:LsdDb' => array(
@@ -801,9 +801,9 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                 'kyoto1.langrid:YMCExpertAnswerParallelText' => array(
                      "http://langrid.org/service_manager/wsdl/kyoto1.langrid:YMCExpertAnswerParallelText", 
                      "en", 
-                     "Japanese paddy",
-                     "In a Japanese paddy, there used to be insects such as a giant water bug, a mayfly, a larva of dragonfly, a firefly, a diving beetle, a water strider, a larva of a mosquito and a caddis-fly. The number of the insects decreases nowadays.",
-                     1
+                     "Big, fat and dense grains are good for seed rice.",
+                     "Big, fat and dense grains are good for seed rice.",
+                     "aec001001002"
                 )
             ), 
             
@@ -847,6 +847,46 @@ It is rather for us, the living, to stand here, we here be dedicated to the grea
                     'ja', 
                     'test', 
                     'テスト',
+                ),
+			//2014/10/17 Otani Add
+                'kyoto1.langrid:KyotoUJServer' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:KyotoUJServer', 
+                    'ja', 
+                    'en', 
+                    'テスト', 
+                    'Test',
+                ),
+			//2014/10/17 Otani Add
+                'kyoto1.langrid:KyotoUJServer' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:KyotoUJServer', 
+                    'zh-CN', 
+                    'ja', 
+                    '你好', 
+                    'こんにちは',
+                ),
+			//2014/10/17 Otani Add
+                'kyoto1.langrid:KyotoUJServer' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:KyotoUJServer', 
+                    'ja', 
+                    'zh-CN', 
+                    'こんにちは', 
+                    '你好',
+                ),
+			//2014/10/17 Otani Add
+                'kyoto1.langrid:KyotoUJServer' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:KyotoUJServer', 
+                    'ja', 
+                    'ko', 
+                    'こんにちは', 
+                    '안녕하세요',
+                ),
+			//2014/10/17 Otani Add
+                'kyoto1.langrid:KyotoUJServer' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:KyotoUJServer', 
+                    'ko', 
+                    'ja', 
+                    '안녕하세요', 
+                    'こんにちは',
                 ),
             //2013/03/08 Horita Add
                 'kyoto1.langrid:Template-EngFilTran' => array(
