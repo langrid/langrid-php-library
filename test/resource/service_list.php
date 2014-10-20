@@ -1104,12 +1104,18 @@ Atlantis: The Lost Empire premiered at the El Capitan Theatre in Hollywood, Cali
             //2013/06/22 Xun Added	            
             'TranslationSelection' => array(
                 'kyoto1.langrid:BestTranslationSelectionUsingQualityEstimationWithAllResults' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:BestTranslationSelectionUsingQualityEstimationWithAllResults', 
-                    array("QualityEstimationPL"  => "QualityEstimationBasedOnBackTranslation","TranslationPL4" => "TranslationPL5", "TranslationPL2" => "TranslationPL1"),
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:BestTranslationSelectionUsingQualityEstimationWithAllResults',
+                    'QualityEstimationBasedOnBackTranslation',
+					array(
+						"SimilarityCalculationPL" => "BLEU",
+						"TranslationPL" => "KyotoUJServer"),
+					array(
+						"TranslationPL3" => "KyotoUJServer", 
+						"TranslationPL4" => "GoogleTranslate"),
                     'ja', 
                     'en', 
-                    '今日はいい天気ですね', 
-                    'It is fine today',
+                    '今日はいい天気です', 
+                    '1',
                 ),
             ),
         ),
