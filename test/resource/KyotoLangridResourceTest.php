@@ -336,16 +336,16 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
 	public function testTranslationSelectionResource($endpoint, $bingingQuality, $bindingsQualityArray, $bindingTranslationArray, $sourceLang, $targetLang, $source, $answer)
     {
         $client = ClientFactory::createTranslationSelectionClient($endpoint);
-        $quality = new BindingNode('QualityEstimation', $bindingQuality);
-		
-		foreach ($bindingsQualityArray as $bindingPoint => $atomicService){
-          $quality->addChild(new BindingNode($bindingPoint, $atomicService));
-		}
+        
+		$quality = new BindingNode('QualityEstimationPL', 'QualityEstimationBasedOnBackTranslation');
+        $quality->addChild(new BindingNode('SimilarityCalculationPL','BLEU'));
+        $quality->addChild(new BindingNode('TranslationPL', 'KyotoUJServer'));
 
-		$client->addBindings($quality);
-        foreach ($bindingsTranslationArray as $bindingPoint => $atomicService){
-          $client->addBindings(new BindingNode($bindingPoint, $atomicService));
-		}
+        $client->addBindings($quality);
+        $client->addBindings(new BindingNode('TranslationPL1', 'KyotoUJServer'));
+        $client->addBindings(new BindingNode('TranslationPL2', 'GoogleTranslate'));
+
+		
 
         $result = $client->select(Language::get($sourceLang), Language::get($targetLang), $source);
         $this->assertEquals($answer,$result->selectedIndex);
