@@ -336,13 +336,13 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
 	public function testTranslationSelectionResource($endpoint, $bingingQuality, $bindingsQualityArray, $bindingTranslationArray, $sourceLang, $targetLang, $source, $answer)
     {
         $client = ClientFactory::createTranslationSelectionClient($endpoint);
-        $bindingQuality = new BindingNode('QualityEstimation', $bindingQuality);
+        $quality = new BindingNode('QualityEstimation', $bindingQuality);
 		
 		foreach ($bindingsQualityArray as $bindingPoint => $atomicService){
-          $bindingQuality->addChild(new BindingNode($bindingPoint, $atomicService));
+          $quality->addChild(new BindingNode($bindingPoint, $atomicService));
 		}
 
-		$client->addBindings($bindingQuality);
+		$client->addBindings($quality);
         foreach ($bindingsTranslationArray as $bindingPoint => $atomicService){
           $client->addBindings(new BindingNode($bindingPoint, $atomicService));
 		}
