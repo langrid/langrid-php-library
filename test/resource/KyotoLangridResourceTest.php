@@ -333,7 +333,7 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
 	/**
      * @dataProvider translationSelectionWsdlProvider
      */
-	public function testTranslationSelectionResource($endpoint, $bingingQuality, $bindingsQualityArray, $bindingTranslationArray, $sourceLang, $targetLang, $source, $answer)
+	public function testTranslationSelectionResource($endpoint, $sourceLang, $targetLang, $source, $answer)
     {
         $client = ClientFactory::createTranslationSelectionClient($endpoint);
         

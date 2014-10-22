@@ -221,6 +221,15 @@ class ServiceList
                         '心臓病',
                         MatchingMethod::PARTIAL,
                  ),
+				// 2014/10/22 Otani Added
+                'kyoto1.langrid:MICA_Name_of_Medicine' => array(
+                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Name_of_Medicine',
+                        'en',
+                        'ja',
+                        'heart',
+                        '心臓病',
+                        MatchingMethod::PARTIAL,
+                 ),
                 // 2014/04/10 Otani Added
                 'kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Hospital' => array(
                         'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Hospital',
@@ -610,6 +619,31 @@ class ServiceList
                     Array('academics','academics','noun'),
                     '学修'
                 ),
+				// 2014/10/22 Otani Added
+                'kyoto1.langrid:KodaijiTempleDictionary' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:KodaijiTempleDictionary',
+                    'ja',
+                    'en',
+                    Array('高台寺','高台寺','noun'),
+                    'Kodai-ji Temple'
+                ),
+				// 2014/10/22 Otani Added
+                'kyoto1.langrid:KyodaiHonyakuDisasterDictionary' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:KyodaiHonyakuDisasterDictionary',
+                    'ja',
+                    'en',
+                    Array('台風２号','台風２号','noun'),
+                    'Typhoon Songda'
+                ),
+				// 2014/10/22 Otani Added
+                'kyoto1.langrid:KyotoMaternityDictionary' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:KyotoMaternityDictionary',
+                    'ja',
+                    'en',
+                    Array('京都桂病院','京都桂病院','noun'),
+                    'Kyoto-Katsura Hospital'
+                ),
+
             ),
             
             'CompositeBilingualDictionaryWithLongestMatchSearch' => array(
