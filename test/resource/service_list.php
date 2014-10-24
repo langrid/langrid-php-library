@@ -370,7 +370,13 @@ class ServiceList
                     'Đây là một thử nghiệm',
                     'Đây',
                 ),
-
+			//2014/10/24 Otani Add
+                'kyoto1.langrid:filSPAM' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:filSPAM',
+                    'tl',
+                    'Ito ay isang magandang panahon ngayon',
+                    'Ito',
+                ),
             ),
             
             // $endpoint, $lang, $text, $answer, $mat(デフォルト MatchingMethod::COMPLETE)
@@ -848,9 +854,15 @@ class ServiceList
                     'woman'
                 ),
                 
-            //2013/06/05 Xun Added
+				//2013/06/05 Xun Added
                 'kyoto1.langrid:OpenJTalk' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:OpenJTalk',
+                    'man'
+                ),
+
+				//2014/10/24 Otani Added
+                'kyoto1.langrid:VOSService' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:VOSService',
                     'man'
                 ),
             ),
@@ -945,6 +957,22 @@ class ServiceList
                     'ja', 
                     'test', 
                     'テスト',
+                ),
+				//2014/10/24 Otani Add
+                'kyoto1.langrid:parsit' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:parsit', 
+                    'en', 
+                    'th', 
+                    'hello', 
+                    'สวัสดี',
+                ),
+				//2014/10/24 Otani Add
+                'kyoto1.langrid:Rule-EngFilTran' => array(
+                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Rule-EngFilTran', 
+                    'en', 
+                    'tl', 
+                    'hello', 
+                    'kumusta',
                 ),
             ), 
             
