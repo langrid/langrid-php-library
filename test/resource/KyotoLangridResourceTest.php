@@ -191,11 +191,12 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider textToSpeechWsdlProvider
      */
-    public function testTextToSpeechResource($endpoint, $answer)
+    public function testTextToSpeechResource($endpoint, $lang, $text, $voiceType, $audioType, $answer)
     {
         $client = ClientFactory::createTextToSpeechClient($endpoint);
-        $result = $client->getSupportedVoiceTypes();
-        $this->assertEquals($answer,$result[0]);
+        $result = $client->speak(Language::get($lang), $text, $voiceType, $audioType);
+
+        $this->assertEquals(strstr(md5($result->audio), $answer);
     }
 
     /**

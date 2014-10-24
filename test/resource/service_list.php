@@ -851,19 +851,31 @@ class ServiceList
             'TextToSpeech' => array(
                 'kyoto1.langrid:VoiceText' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:VoiceText',
-                    'woman'
+					'ja',
+					'こんにちは',
+                    'woman',
+					'audio/x-wav',
+					'708b17836d50941e7168fe65d935186b'
                 ),
                 
 				//2013/06/05 Xun Added
                 'kyoto1.langrid:OpenJTalk' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:OpenJTalk',
-                    'man'
+					'ja',
+					'こんにちは',
+                    'woman',
+					'audio/x-wav',
+					'35ed9450bbe0d0283e6721cd50a29095'
                 ),
 
 				//2014/10/24 Otani Added
                 'kyoto1.langrid:VOSService' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:VOSService',
-                    'man'
+					'vi',
+					'Xin chào'
+                    'woman',
+					'audio/x-wav',
+					'65b0cd8c3dcccb479f6e4952443c9683'
                 ),
             ),
             
