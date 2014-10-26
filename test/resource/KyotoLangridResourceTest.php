@@ -196,7 +196,7 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
         $client = ClientFactory::createTextToSpeechClient($endpoint);
         $result = $client->speak(Language::get($lang), $text, $voiceType, $audioType);
 
-        $this->assertEquals(strstr(md5($result->audio), $answer);
+        $this->assertEquals(md5($result->audio), $answer);
     }
 
     /**

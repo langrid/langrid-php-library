@@ -872,7 +872,7 @@ class ServiceList
                 'kyoto1.langrid:VOSService' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:VOSService',
 					'vi',
-					'Xin chào'
+					'Xin chào',
                     'woman',
 					'audio/x-wav',
 					'65b0cd8c3dcccb479f6e4952443c9683'
@@ -995,56 +995,56 @@ class ServiceList
             //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TranslationWithBackup' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:TranslationWithBackup', 
-                    array("TranslationPL"  => "GoogleTranslate","BackupTranslationPL" => "GoogleTranslate"),
+                    array("TranslationPL"  => "KyotoUJServer","BackupTranslationPL" => "KyotoUJServer"),
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '您好',
+                    '你好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:ThreeHopTranslationEnJa' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:ThreeHopTranslationEnJa', 
-                    array("SecondTranslationPL"  => "GoogleTranslate","ThirdTranslationPL" => "GoogleTranslate","FirstTranslationPL" => "GoogleTranslate"),
+                    array("SecondTranslationPL"  => "KyotoUJServer","ThirdTranslationPL" => "KyotoUJServer","FirstTranslationPL" => "KyotoUJServer"),
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '您好',
+                    '你好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:ThreeHopTranslationJaEn' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:ThreeHopTranslationJaEn', 
-                    array("SecondTranslationPL"  => "GoogleTranslate","ThirdTranslationPL" => "GoogleTranslate","FirstTranslationPL" => "GoogleTranslate"),
+                    array("SecondTranslationPL"  => "KyotoUJServer","ThirdTranslationPL" => "KyotoUJServer","FirstTranslationPL" => "KyotoUJServer"),
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '您好',
+                    '你好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TranslationWithParallelText' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:TranslationWithParallelText', 
-                    array("TranslationPL"  => "GoogleTranslate","ParallelTextPL" => "ToyohashiStudy"),
+                    array("TranslationPL"  => "KyotoUJServer","ParallelTextPL" => "ToyohashiStudy"),
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '您好',
+                    '你好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TwoHopTranslationEn' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:TwoHopTranslationEn', 
-                    array("SecondTranslationPL"  => "GoogleTranslate","FirstTranslationPL" => "GoogleTranslate"),
+                    array("SecondTranslationPL"  => "KyotoUJServer","FirstTranslationPL" => "KyotoUJServer"),
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '您好',
+                    '你好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TwoHopTranslationJa' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:TwoHopTranslationJa', 
-                    array("SecondTranslationPL"  => "GoogleTranslate","FirstTranslationPL" => "GoogleTranslate"),
+                    array("SecondTranslationPL"  => "KyotoUJServer","FirstTranslationPL" => "KyotoUJServer"),
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '您好',
+                    '你好',
                 ),
             ),
            
