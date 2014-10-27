@@ -170,12 +170,19 @@ class KyotoLangridResourceTest extends PHPUnit_Framework_TestCase
      //結果をチェックしていないが，音声ファイルを関数に渡す方法が分からなかったので
      //対応している言語の結果だけをチェックするように
      //2013/02/04西村
-    public function testSpeechRecognitionResource($endpoint,$answer)
+    public function testSpeechRecognitionResource($endpoint,$language,$voiceType,$audioType,$audioFile,$answer)
     {
         $client = ClientFactory::createSpeechRecognitionClient($endpoint);
-        $result = $client->getSupportedLanguages();
-        $this->assertEquals($answer,$result[0]);
+
+        $handle = fopen($audioFile, "rb");
+        $contents = fread($handle, filesize($audioFile));
+
+        $speech = new Speech($voiceType, $audioType, $contents);
+        $result = $client->recognize(Language::get($language), $speech);
+
+        $this->assertEquals($answer,$result);
     }
+
     
     /**
      * @dataProvider templateParallelTextWsdlProvider

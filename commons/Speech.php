@@ -18,7 +18,7 @@ class Speech
     function __construct($voiceType, $audioType, $audio)
     {
         $this->setVoiceType($voiceType);
-        $this->setAudio($audioType);
+        $this->setAudioType($audioType);
         $this->setAudio($audio);
     }
 

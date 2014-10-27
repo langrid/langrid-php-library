@@ -799,7 +799,12 @@ class ServiceList
             //2013/02/04 Nishimura Add            
                 'kyoto1.langrid:Julius' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Julius',
-                    'ja'
+                    'ja',
+                    'standard',
+                    'audio/x-wav',
+                    'resource/SpeechRecognitionTest.wav',
+                    '今日は'
+
                 )
             ),
             
@@ -996,7 +1001,7 @@ class ServiceList
                 'kyoto1.langrid:TranslationWithBackup' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:TranslationWithBackup', 
                     array("TranslationPL"  => "KyotoUJServer","BackupTranslationPL" => "GoogleTranslate"),
-                    'jp', 
+                    'ja', 
                     'en', 
                     'こんにちは', 
                     'Hello',
@@ -1017,7 +1022,7 @@ class ServiceList
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '您好',
+                    '你好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TranslationWithParallelText' => array(
@@ -1031,7 +1036,7 @@ class ServiceList
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TwoHopTranslationEn' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:TwoHopTranslationEn', 
-                    array("SecondTranslationPL"  => "GoogleTranslate","FirstTranslationPL" => "KyotoUJServer"),
+                    array("SecondTranslationPL"  => "KyotoUJServer","FirstTranslationPL" => "GoogleTranslate"),
                     'it', 
                     'ja', 
                     'Ciao', 
