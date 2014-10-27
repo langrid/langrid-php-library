@@ -995,34 +995,34 @@ class ServiceList
             //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TranslationWithBackup' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:TranslationWithBackup', 
-                    array("TranslationPL"  => "KyotoUJServer","BackupTranslationPL" => "KyotoUJServer"),
-                    'ko', 
-                    'zh', 
-                    '안녕하세요', 
-                    '你好',
+                    array("TranslationPL"  => "KyotoUJServer","BackupTranslationPL" => "GoogleTranslate"),
+                    'jp', 
+                    'en', 
+                    'こんにちは', 
+                    'Hello',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:ThreeHopTranslationEnJa' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:ThreeHopTranslationEnJa', 
-                    array("SecondTranslationPL"  => "KyotoUJServer","ThirdTranslationPL" => "KyotoUJServer","FirstTranslationPL" => "KyotoUJServer"),
-                    'ko', 
+                    array("SecondTranslationPL"  => "KyotoUJServer","ThirdTranslationPL" => "KyotoUJServer","FirstTranslationPL" => "GoogleTranslate"),
                     'zh', 
-                    '안녕하세요', 
-                    '你好',
+                    'ko', 
+                    '您好', 
+                    '안녕하세요',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:ThreeHopTranslationJaEn' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:ThreeHopTranslationJaEn', 
-                    array("SecondTranslationPL"  => "KyotoUJServer","ThirdTranslationPL" => "KyotoUJServer","FirstTranslationPL" => "KyotoUJServer"),
+                    array("SecondTranslationPL"  => "KyotoUJServer","ThirdTranslationPL" => "GoogleTranslate","FirstTranslationPL" => "KyotoUJServer"),
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '你好',
+                    '您好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TranslationWithParallelText' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:TranslationWithParallelText', 
-                    array("TranslationPL"  => "KyotoUJServer","ParallelTextPL" => "ToyohashiStudy"),
+                    array("TranslationPL"  => "GoogleTranslate","ParallelTextPL" => "ToyohashiStudy"),
                     'ko', 
                     'zh', 
                     '안녕하세요', 
@@ -1031,20 +1031,20 @@ class ServiceList
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TwoHopTranslationEn' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:TwoHopTranslationEn', 
-                    array("SecondTranslationPL"  => "KyotoUJServer","FirstTranslationPL" => "KyotoUJServer"),
-                    'ko', 
-                    'zh', 
-                    '안녕하세요', 
-                    '你好',
+                    array("SecondTranslationPL"  => "GoogleTranslate","FirstTranslationPL" => "KyotoUJServer"),
+                    'it', 
+                    'ja', 
+                    'Ciao', 
+                    'こんにちは',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TwoHopTranslationJa' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:TwoHopTranslationJa', 
                     array("SecondTranslationPL"  => "KyotoUJServer","FirstTranslationPL" => "KyotoUJServer"),
+                    'en', 
                     'ko', 
-                    'zh', 
-                    '안녕하세요', 
-                    '你好',
+                    'Hello', 
+                    '안녕하세요',
                 ),
             ),
            
