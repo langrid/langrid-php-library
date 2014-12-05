@@ -968,13 +968,13 @@ class ServiceList
                     '试验',
                 ),
             //2013/02/14 Horita Add
-                'kyoto1.langrid:YakushiteNet' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:YakushiteNet', 
-                    'en', 
-                    'ja', 
-                    'test', 
-                    'テスト',
-                ),
+            //    'kyoto1.langrid:YakushiteNet' => array(
+            //        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:YakushiteNet', 
+            //        'en', 
+            //        'ja', 
+            //        'test', 
+            //        'テスト',
+            //    ),
 				//2014/10/24 Otani Add
                 'kyoto1.langrid:parsit' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:parsit', 
