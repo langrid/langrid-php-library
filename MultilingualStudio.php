@@ -20,6 +20,13 @@ require_once dirname(__FILE__).'/commons/MLSException.php';
 require_once dirname(__FILE__).'/service/ServiceFactory.php';
 require_once dirname(__FILE__).'/lib/php-activerecord/ActiveRecord.php';
 
+require_once dirname(__FILE__).'/serviceconfigurator/ServiceConfigurator.php';
+require_once dirname(__FILE__).'/serviceconfigurator/BackTranslationWithTemporalDictionaryConfigurator.php';
+require_once dirname(__FILE__).'/serviceconfigurator/BackTranslationConfigurator.php';
+require_once dirname(__FILE__).'/serviceconfigurator/MultihopTranslationConfigurator.php';
+require_once dirname(__FILE__).'/serviceconfigurator/TranslationWithTemporalDictionaryConfigurator.php';
+require_once dirname(__FILE__).'/serviceconfigurator/MultihopBackTranslationConfigurator.php';
+require_once dirname(__FILE__).'/serviceconfigurator/MultihopTranslationWithTemporalDictionaryConfigurator.php';
+
 // config/service_settings.sample.php is a sample file of settings.
 require_once dirname(__FILE__).'/config/service_settings.php';
-
