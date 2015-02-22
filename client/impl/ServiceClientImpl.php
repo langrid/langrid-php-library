@@ -84,7 +84,6 @@ abstract class ServiceClientImpl implements ServiceClient
         array_push($this->treeBindings, $node);
     }
 
-
     /*
      * @param method: 呼び出すメソッドの名前
      * @param arguments: パラメーター
@@ -121,9 +120,17 @@ abstract class ServiceClientImpl implements ServiceClient
             'exceptions' => false,
             'trace' => true,
             'compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP,
-            'proxy_host' => $this->proxyHost,
-            'proxy_port' => $this->proxyPort,
         );
+
+        if (!! $this->proxyHost && !! $this->proxyPort) {
+            $options = array_merge(
+                array(
+                    'proxy_host' => $this->proxyHost,
+                    'proxy_port' => $this->proxyPort,
+                ),
+                $options);
+        }
+
         if (ClientFactory::getDefaultSoapOptions()) {
             $options = array_merge(ClientFactory::getDefaultSoapOptions(), $options);
         }

@@ -6,7 +6,10 @@ class BindingNodeUtil {
         return self::createBindingNode($obj);
     }
 
-    private static function createBindingNode($obj) {
+    public static function createBindingNode($obj) {
+        if ($obj == null) {
+            return array();
+        }
         if (is_array($obj)) {
             $children = array();
             foreach ($obj as $c) {
