@@ -18,10 +18,10 @@ class ParallelTextContentTest extends PHPUnit_Framework_TestCase
         $loader->reset_table_data();
     }
 
-    public function testHoge(){
-        $contents = ParallelTextContent::all();
-        $this->assertTrue(true);
-    }
+//    public function testHoge(){
+//        $contents = ParallelTextContent::all();
+//        $this->assertTrue(true);
+//    }
 
     public function testValidatePresenseParallelTextRecordId(){
         $content = new ParallelTextContent(array('text' => 'testword', 'language' => 'ja'));
