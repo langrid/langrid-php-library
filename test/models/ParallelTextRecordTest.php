@@ -25,40 +25,40 @@ class ParallelTextRecordTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($record->is_invalid(), 'failure validate presense: parallel_text_id');
     }
 
-    public function testGet_contents(){
+    public function testGetContents(){
         $records = ParallelTextRecord::find(1);
         $contents = $records->get_contents();
         $this->assertEquals($contents['ja'], 'こんにちは');
         $this->assertEquals($contents['en'], 'hello');
     }
 
-    public function testCount_by_parallel_text_id_each_languages(){
+    public function testCountByParallelTextIdEachLanguages(){
         $result = ParallelTextRecord::count_by_resource_id_each_languages(2);
         $this->assertTrue($result['ja'] == 5);
         $this->assertTrue($result['en'] == 4);
         $this->assertTrue($result['ko'] == 3);
     }
 
-    public function testGet_contentsWithProperty(){
+    public function testGetContentsWithProperty(){
         $records = ParallelTextRecord::find(1);
         $contents = $records->get_contents(true);
         $this->assertEquals($contents['ja']['text'], 'こんにちは');
         $this->assertEquals($contents['en']['text'], 'hello');
     }
 
-    public function testCount_by_parallel_text_id_and_language(){
+    public function testCountByParallelTextIdAndLanguage(){
         $count = ParallelTextRecord::count_by_resource_id_and_language(1, Language::get("en"));
         $this->assertTrue($count == 5);
     }
 
-    public function testGet_contents_as_ordered_array1(){
+    public function testGetContentsAsOrderedArray1(){
         $record = ParallelTextRecord::find(1);
         $result = $record->get_contents_as_ordered_array(array('ja', 'en'));
         $this->assertEquals($result[0], 'こんにちは');
         $this->assertEquals($result[1], 'hello');
     }
 
-    public function testGet_contents_as_ordered_array2(){
+    public function testGetContentsAsOrderedArray2(){
         $record = ParallelTextRecord::find(1);
         $result = $record->get_contents_as_ordered_array(array('en', 'ja', 'zh'));
         $this->assertEquals($result[0], 'hello');
@@ -66,7 +66,7 @@ class ParallelTextRecordTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($result[2], '');
     }
 
-    public function testUpdate_contents_basic() {
+    public function testUpdateContentsBasic() {
         $record = ParallelTextRecord::find(2);
         $record->update_contents(array(
             'ja' => '午前'
@@ -77,7 +77,7 @@ class ParallelTextRecordTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('午前', $contents['ja']);
     }
 
-    public function testUpdate_contents_append() {
+    public function testUpdateContentsAppend() {
         $record = ParallelTextRecord::find(6);
         $record->update_contents(array(
             'ja' => 'foo',
@@ -90,7 +90,7 @@ class ParallelTextRecordTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $contents['ko']);
     }
 
-    public function testUpdate_contents_basic_with_user() {
+    public function testUpdateContentsBasicWithUser() {
         $record = ParallelTextRecord::find(2);
         $userId = '000001';
         $record->update_contents(array(
@@ -102,7 +102,7 @@ class ParallelTextRecordTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($userId, $contents['ja']['updated_by']);
     }
 
-    public function testUpdate_contents_append_with_user() {
+    public function testUpdateContentsAppendWithUser() {
         $record = ParallelTextRecord::find(6);
         $userId = '000002';
         $record->update_contents(array(

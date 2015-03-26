@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Created by JetBrains PhpStorm.
  * User: tetsu
@@ -99,7 +99,7 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($dict->delete_flag == 1);
     }
 
-    public function testAll_without_delete_flag_on() {
+    public function testAllWithoutDeleteFlagOn() {
         $beforeCount = ParallelText::count();
         $dict = ParallelText::find(3);
         $dict->remove();
@@ -126,7 +126,7 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($beforeCount - 1 == $afterCount);
     }
 
-    public function testAdd_language(){
+    public function testAddLanguage(){
         $dict = ParallelText::find(1);
         $dict->add_language(Language::get('zh'));
 
@@ -135,7 +135,7 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(in_array('zh', $readDict->get_languages()));
     }
 
-    public function testAdd_language_validate_unique(){
+    public function testAddLanguageValidateUnique(){
         $dict = ParallelText::find(1);
         try {
             $dict->add_language(Language::get('en'));
@@ -145,14 +145,14 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGet_languages(){
+    public function testGetLanguages(){
         $dict = ParallelText::find(1);
         $this->assertTrue(count($dict->get_languages()) == 2);
         $this->assertTrue(in_array('ja', $dict->get_languages()));
         $this->assertTrue(in_array('en', $dict->get_languages()));
     }
 
-    public function testRmove_language() {
+    public function testRmoveLanguage() {
         $dict = ParallelText::find(5);
         $beforeCount = count($dict->get_languages(array('joins' => 'parallel_text_records')));
         $beforeContentsCount = count(ParallelTextContent::find_all_by_resource_id(5));
@@ -165,7 +165,7 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($beforeContentsCount == $afterContentsCount);
     }
 
-    public function testUpdate_language_validate_minimum(){
+    public function testUpdateLanguageValidateMinimum(){
         $dict = ParallelText::find(1);
         try{
             $dict->update_languages(array('ja'));
@@ -175,7 +175,7 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testUpdate_language(){
+    public function testUpdateLanguage(){
         $dict = ParallelText::find(7);
         $beforeContentCount = count(ParallelTextContent::find_all_by_resource_id(7));
         $dict->update_languages(array('ja', 'en', 'vi'));
@@ -189,11 +189,11 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($beforeContentCount == $afterContentCount);
     }
 
-    public function testUpdate_language_force(){
+    public function testUpdateLanguageForce(){
         $dict = ParallelText::find(8);
     }
 
-    public function testRemove_language_force() {
+    public function testRemoveLanguageForce() {
         $dict = ParallelText::find(6);
         $beforeCount = count($dict->get_languages(array('joins' => 'parallel_text_records')));
         $beforeContentsCount = count(ParallelTextContent::find_all_by_resource_id(6));
@@ -206,7 +206,7 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($beforeContentsCount > $afterContentsCount);
     }
 
-    public function testAdd_record() {
+    public function testAddRecord() {
         $dict = ParallelText::find(1);
         $beforCount = $dict->records_count();
         $dict->add_record(array(
@@ -217,12 +217,12 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($beforCount + 1 == $afterCount, 'could not create record');
     }
 
-    public function testIs_deploy() {
+    public function testIsDeploy() {
         $dict = ParallelText::find(1);
         $this->assertTrue($dict->is_deploy());
     }
 
-    public function testIs_not_deploy() {
+    public function testIsNotDeploy() {
         $dict = ParallelText::find(2);
         $this->assertFalse($dict->is_deploy());
     }
@@ -241,7 +241,7 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testCount_records_each_language(){
+    public function testCountRecordsEachLanguage(){
         $dict = ParallelText::find(2);
         $result = $dict->count_records_each_language();
         $this->assertTrue($result['ja'] == 5);
@@ -249,17 +249,17 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result['ko'] == 3);
     }
 
-    public function testCount_records_by_language(){
+    public function testCountRecordsByLanguage(){
         $dict = ParallelText::find(1);
         $this->assertTrue($dict->count_records_by_language(Language::get("en")) == 5);
     }
 
-    public function testRecords_count(){
+    public function testRecordsCount(){
         $dict = ParallelText::find(1);
         $this->assertTrue($dict->records_count() == 5);
     }
 
-    public function testGet_records() {
+    public function testGetRecords() {
         $dict = $dict = ParallelText::find(2);
         $records = $dict->get_records(array('offset' => 2, 'limit' => 2, 'order' => 'id desc'));
         $this->assertTrue(count($records) == 2);
@@ -267,39 +267,39 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($records[1]->id == '7');
     }
 
-    public function testCan_view_any () {
+    public function testCanViewAny () {
         $dict = $dict = ParallelText::find(1);
         $this->assertTrue($dict->can_view(1));
         $this->assertTrue($dict->can_view(2));
         $this->assertTrue($dict->can_view());
     }
 
-    public function testCan_view_only_user () {
+    public function testCanViewOnlyUser () {
         $dict = $dict = ParallelText::find(2);
         $this->assertFalse($dict->can_view(1));
         $this->assertTrue($dict->can_view(2));
     }
 
-    public function testCan_edit_any () {
+    public function testCanEditAny () {
         $dict = $dict = ParallelText::find(1);
         $this->assertTrue($dict->can_edit(1));
         $this->assertTrue($dict->can_edit(2));
         $this->assertTrue($dict->can_edit());
     }
 
-    public function testCan_edit_only_user () {
+    public function testCanEditOnlyUser () {
         $dict = $dict = ParallelText::find(2);
         $this->assertFalse($dict->can_edit(1));
         $this->assertTrue($dict->can_edit(2));
     }
 
-    public function testIs_owner () {
+    public function testIsOwner () {
         $dict = $dict = ParallelText::find(1);
         $this->assertTrue($dict->is_owner(1));
         $this->assertFalse($dict->is_owner(2));
     }
 
-    public function testCreate_with_records(){
+    public function testCreateWithRecords(){
         $dict = ParallelText::create_with_records(array(
             'name' => 'TestParallelText',
             'licenser' => 'TestParallelTextLicenser',
@@ -317,7 +317,7 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($dict->records_count() == 4, 'could not create records');
     }
 
-    public function testTransation_create_with_records_language() {
+    public function testTransationCreateWithRecordsLanguage() {
         $before_count = ParallelText::count();
         try {
             $dict = ParallelText::create_with_records(array(
@@ -341,7 +341,7 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testTransation_create_with_records_unidentified_language() {
+    public function testTransationCreateWithRecordsUnidentifiedLanguage() {
         $before_count = ParallelText::count();
         try {
             $dict = ParallelText::create_with_records(array(
@@ -364,7 +364,7 @@ class ParallelTextTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testTransation_create_with_records_count_record() {
+    public function testTransationCreateWithRecordsCountRecord() {
         $before_count = ParallelText::count();
         try {
             $dict = ParallelText::create_with_records(array(

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Author: Tetsuro Higuchi
  * To change this template use File | Settings | File Templates.
@@ -97,7 +97,7 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($dict->delete_flag == 1);
     }
 
-    public function testAll_without_delete_flag_on() {
+    public function testAllWithoutDeleteFlagOn() {
         $beforeCount = Dictionary::count();
         $dict = Dictionary::find(3);
         $dict->remove();
@@ -124,7 +124,7 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($beforeCount - 1 == $afterCount);
     }
 
-    public function testAdd_language(){
+    public function testAddLanguage(){
         $dict = Dictionary::find(1);
         $dict->add_language(Language::get('zh'));
 
@@ -133,7 +133,7 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(in_array('zh', $readDict->get_languages()));
     }
 
-    public function testAdd_language_validate_unique(){
+    public function testAddLanguageValidateUnique(){
         $dict = Dictionary::find(1);
         try {
             $dict->add_language(Language::get('en'));
@@ -143,14 +143,14 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGet_languages(){
+    public function testGetLanguages(){
         $dict = Dictionary::find(1);
         $this->assertTrue(count($dict->get_languages()) == 2);
         $this->assertTrue(in_array('ja', $dict->get_languages()));
         $this->assertTrue(in_array('en', $dict->get_languages()));
     }
 
-    public function testRmove_language() {
+    public function testRemoveLanguage() {
         $dict = Dictionary::find(5);
         $beforeCount = count($dict->get_languages(array('joins' => 'dictionary_records')));
         $beforeContentsCount = count(DictionaryContent::find_all_by_resource_id(5));
@@ -163,7 +163,7 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($beforeContentsCount == $afterContentsCount);
     }
 
-    public function testUpdate_language_validate_minimum(){
+    public function testUpdateLanguageValidateMinimum(){
         $dict = Dictionary::find(1);
         try{
             $dict->update_languages(array('ja'));
@@ -173,7 +173,7 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testUpdate_language(){
+    public function testUpdateLanguage(){
         $dict = Dictionary::find(7);
         $beforeContentCount = count(DictionaryContent::find_all_by_resource_id(7));
         $dict->update_languages(array('ja', 'en', 'vi'));
@@ -187,11 +187,11 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($beforeContentCount == $afterContentCount);
     }
 
-    public function testUpdate_language_force(){
+    public function testUpdateLanguageForce(){
         $dict = Dictionary::find(8);
     }
 
-    public function testRmove_language_force() {
+    public function testRemoveLanguageForce() {
         $dict = Dictionary::find(6);
         $beforeCount = count($dict->get_languages(array('joins' => 'dictionary_records')));
         $beforeContentsCount = count(DictionaryContent::find_all_by_resource_id(6));
@@ -204,7 +204,7 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($beforeContentsCount > $afterContentsCount);
     }
 
-    public function testAdd_record() {
+    public function testAddRecord() {
         $dict = Dictionary::find(1);
         $beforCount = $dict->records_count();
         $dict->add_record(array(
@@ -215,12 +215,12 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($beforCount + 1 == $afterCount, 'could not create record');
     }
 
-    public function testIs_deploy() {
+    public function testIsDeploy() {
         $dict = Dictionary::find(1);
         $this->assertTrue($dict->is_deploy());
     }
 
-    public function testIs_not_deploy() {
+    public function testIsNotDeploy() {
         $dict = Dictionary::find(2);
         $this->assertFalse($dict->is_deploy());
     }
@@ -239,7 +239,7 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testCount_records_each_language(){
+    public function testCountRecordsEachLanguage(){
         $dict = Dictionary::find(2);
         $result = $dict->count_records_each_language();
         $this->assertTrue($result['ja'] == 5);
@@ -247,17 +247,17 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result['ko'] == 3);
     }
 
-    public function testCount_records_by_language(){
+    public function testCountRecordsByLanguage(){
         $dict = Dictionary::find(1);
         $this->assertTrue($dict->count_records_by_language(Language::get("en")) == 5);
     }
 
-    public function testRecords_count(){
+    public function testRecordsCount(){
         $dict = Dictionary::find(1);
         $this->assertTrue($dict->records_count() == 5);
     }
 
-    public function testGet_records() {
+    public function testGetRecords() {
         $dict = $dict = Dictionary::find(2);
         $records = $dict->get_records(array('offset' => 2, 'limit' => 2, 'order' => 'id desc'));
         $this->assertTrue(count($records) == 2);
@@ -265,39 +265,39 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($records[1]->id == '7');
     }
 
-    public function testCan_view_any () {
+    public function testCanViewAny () {
         $dict = $dict = Dictionary::find(1);
         $this->assertTrue($dict->can_view(1));
         $this->assertTrue($dict->can_view(2));
         $this->assertTrue($dict->can_view());
     }
 
-    public function testCan_view_only_user () {
+    public function testCanViewOnlyUser () {
         $dict = $dict = Dictionary::find(2);
         $this->assertFalse($dict->can_view(1));
         $this->assertTrue($dict->can_view(2));
     }
 
-    public function testCan_edit_any () {
+    public function testCanEditAny () {
         $dict = $dict = Dictionary::find(1);
         $this->assertTrue($dict->can_edit(1));
         $this->assertTrue($dict->can_edit(2));
         $this->assertTrue($dict->can_edit());
     }
 
-    public function testCan_edit_only_user () {
+    public function testCanEditOnlyUser () {
         $dict = $dict = Dictionary::find(2);
         $this->assertFalse($dict->can_edit(1));
         $this->assertTrue($dict->can_edit(2));
     }
 
-    public function testIs_owner () {
+    public function testIsOwner () {
         $dict = $dict = Dictionary::find(1);
         $this->assertTrue($dict->is_owner(1));
         $this->assertFalse($dict->is_owner(2));
     }
 
-    public function testCreate_with_records(){
+    public function testCreateWithRecords(){
         $dict = Dictionary::create_with_records(array(
             'name' => 'TestDictionary',
             'licenser' => 'TestDictionaryLicenser',
@@ -315,7 +315,7 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($dict->records_count() == 4, 'could not create records');
     }
 
-    public function testTransation_create_with_records_language() {
+    public function testTransationCreateWithRecordsLanguage() {
         $before_count = Dictionary::count();
         try {
             $dict = Dictionary::create_with_records(array(
@@ -339,7 +339,7 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testTransation_create_with_records_unidentified_language() {
+    public function testTransationCreateWithRecordsUnidentifiedLanguage() {
         $before_count = Dictionary::count();
         try {
             $dict = Dictionary::create_with_records(array(
@@ -362,7 +362,7 @@ class DictionaryTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testTransation_create_with_records_count_record() {
+    public function testTransationCreateWithRecordsCountRecord() {
         $before_count = Dictionary::count();
         try {
             $dict = Dictionary::create_with_records(array(

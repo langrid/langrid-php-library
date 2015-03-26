@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Author: Tetsuro Higuchi
  * To change this template use File | Settings | File Templates.
@@ -16,10 +16,10 @@ class DictionaryContentTest extends PHPUnit_Framework_TestCase
         $loader->reset_table_data();
     }
 
-    public function testHoge(){
-        $contents = DictionaryContent::all();
-        $this->assertTrue(true);
-    }
+//    public function testHoge(){
+//        $contents = DictionaryContent::all();
+//        $this->assertTrue(true);
+//    }
 
     public function testValidatePresenseDictionaryRecordId(){
         $content = new DictionaryContent(array('text' => 'testword', 'language' => 'ja'));
@@ -68,12 +68,12 @@ class DictionaryContentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($readContent->text, 'modified');
     }
 
-    public function testFind_all_by_dictionary_id() {
+    public function testFindAllByDictionaryId() {
         $contents = DictionaryContent::find_all_by_resource_id(1);
         $this->assertTrue(count($contents) == 10);
     }
 
-    public function testDelete_all_by_resource_id_and_language() {
+    public function testDeleteAllByResourceIdAndLanguage() {
         $beforeCount = count(DictionaryContent::find_all_by_resource_id(5));
         DictionaryContent::delete_all_by_resource_id_and_language(5, Language::get('ja'));
         $afterCount = count(DictionaryContent::find_all_by_resource_id(5));

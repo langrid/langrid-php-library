@@ -195,59 +195,59 @@ class ServiceList
                 ),
                 
                 // 2013/06/12 Sasaki Added
-                'kyoto1.langrid:MICA_Symptom' => array(
-                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Symptom',
-                        'en',
-                        'ja',
-                        'constipation',
-                        '便秘',
-                        MatchingMethod::PARTIAL,
-                ),
+//                'kyoto1.langrid:MICA_Symptom' => array(
+//                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Symptom',
+//                        'en',
+//                        'ja',
+//                        'constipation',
+//                        '便秘',
+//                        MatchingMethod::PARTIAL,
+//                ),
                 // 2013/06/12 Sasaki Added
-                'kyoto1.langrid:MICA_Medicine_Bag' => array(
-                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Medicine_Bag',
-                        'en',
-                        'ja',
-                        'dosage',
-                        '＿時間以上間隔をあけて服用して下さい',
-                        MatchingMethod::PARTIAL,
-                 ),
+//                'kyoto1.langrid:MICA_Medicine_Bag' => array(
+//                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Medicine_Bag',
+//                        'en',
+//                        'ja',
+//                       'dosage',
+//                        '＿時間以上間隔をあけて服用して下さい',
+//                        MatchingMethod::PARTIAL,
+//                 ),
                 // 2014/04/10 Otani Added
-                'kyoto1.langrid:MICA_Interview_Sheet' => array(
-                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Interview_Sheet',
-                        'en',
-                        'ja',
-                        'heart',
-                        '心臓病',
-                        MatchingMethod::PARTIAL,
-                 ),
+//                'kyoto1.langrid:MICA_Interview_Sheet' => array(
+//                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Interview_Sheet',
+//                        'en',
+//                        'ja',
+//                        'heart',
+//                        '心臓病',
+//                        MatchingMethod::PARTIAL,
+//                 ),
 				// 2014/10/22 Otani Added
-                'kyoto1.langrid:MICA_Name_of_Medicine' => array(
-                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Name_of_Medicine',
-                        'en',
-                        'ja',
-                        'heart',
-                        '心臓病',
-                        MatchingMethod::PARTIAL,
-                 ),
+//                'kyoto1.langrid:MICA_Name_of_Medicine' => array(
+//                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:MICA_Name_of_Medicine',
+//                        'en',
+//                        'ja',
+ //                       'heart',
+//                        '心臓病',
+//                        MatchingMethod::PARTIAL,
+//                 ),
                 // 2014/04/10 Otani Added
-                'kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Hospital' => array(
-                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Hospital',
-                        'en',
-                        'ja',
-                        'Psychiatry',
-                        '精神科',
-                        MatchingMethod::PARTIAL,
-                 ),
+//                'kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Hospital' => array(
+//                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Hospital',
+//                        'en',
+//                        'ja',
+//                        'Psychiatry',
+//                        '精神科',
+//                        MatchingMethod::PARTIAL,
+//                 ),
                 // 2014/04/10 Otani Added
-                'kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Pharmacy' => array(
-                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Pharmacy',
-                        'en',
-                        'ja',
-                        'Headache',
-                        '頭痛',
-                        MatchingMethod::PARTIAL,
-                 ),
+//                'kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Pharmacy' => array(
+//                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Mitsubishi_Tanabe_Pharma_Foreign_Conversation_at_Pharmacy',
+//                        'en',
+//                        'ja',
+//                        'Headache',
+//                        '頭痛',
+//                        MatchingMethod::PARTIAL,
+//                 ),
                 // 2014/04/10 Otani Added
                 'kyoto1.langrid:OsakaPrefectureCareerGuidanceParalleltext' => array(
                         'http://langrid.org/service_manager/wsdl/kyoto1.langrid:OsakaPrefectureCareerGuidanceParalleltext',
@@ -371,12 +371,12 @@ class ServiceList
                     'Đây',
                 ),
 			//2014/10/24 Otani Add
-                'kyoto1.langrid:filSPAM' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:filSPAM',
-                    'tl',
-                    'Ito ay isang magandang panahon ngayon',
-                    'Ito',
-                ),
+//                'kyoto1.langrid:filSPAM' => array(
+//                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:filSPAM',
+//                    'tl',
+//                    'Ito ay isang magandang panahon ngayon',
+//                    'Ito',
+//                ),
             ),
             
             // $endpoint, $lang, $text, $answer, $mat(デフォルト MatchingMethod::COMPLETE)
@@ -462,13 +462,13 @@ class ServiceList
                     '都'
                 ),
             //2013/06/12 Sasaki Add
-                'kyoto1.langrid:lexitron-dict-public' => array(
-                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:lexitron-dict-public',
-                        'en',
-                        'th',
-                        'snow',
-                        '(หิมะ) ตก'
-                        ),
+//                'kyoto1.langrid:lexitron-dict-public' => array(
+//                        'http://langrid.org/service_manager/wsdl/kyoto1.langrid:lexitron-dict-public',
+//                        'en',
+//                        'th',
+//                        'snow',
+//                        '(หิมะ) ตก'
+//                        ),
                 //2013/06/12 Sasaki Add
 // Because Nii service is suspended, this testing is temporary commented
 // Proper handling of such case is to check the status of the service before it is tested
@@ -952,13 +952,13 @@ class ServiceList
                     'こんにちは',
                 ),
             //2013/03/08 Horita Add
-                'kyoto1.langrid:Template-EngFilTran' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Template-EngFilTran', 
-                    'en', 
-                    'tl', 
-                    'This is a test.', 
-                    'Ito isang pagsusuri.',
-                ),
+//                'kyoto1.langrid:Template-EngFilTran' => array(
+//                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Template-EngFilTran', 
+//                    'en', 
+//                    'tl', 
+//                    'This is a test.', 
+//                    'Ito isang pagsusuri.',
+//                ),
             //2013/02/14 Horita Add
                 'kyoto1.langrid:ToshibaMT' => array(
                     'http://langrid.org/service_manager/wsdl/kyoto1.langrid:ToshibaMT', 
@@ -976,21 +976,21 @@ class ServiceList
             //        'テスト',
             //    ),
 				//2014/10/24 Otani Add
-                'kyoto1.langrid:parsit' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:parsit', 
-                    'en', 
-                    'th', 
-                    'hello', 
-                    'สวัสดี',
-                ),
+//                'kyoto1.langrid:parsit' => array(
+//                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:parsit', 
+//                    'en', 
+//                    'th', 
+//                    'hello', 
+//                    'สวัสดี',
+//                ),
 				//2014/10/24 Otani Add
-                'kyoto1.langrid:Rule-EngFilTran' => array(
-                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Rule-EngFilTran', 
-                    'en', 
-                    'tl', 
-                    'hello', 
-                    'kumusta',
-                ),
+//                'kyoto1.langrid:Rule-EngFilTran' => array(
+//                    'http://langrid.org/service_manager/wsdl/kyoto1.langrid:Rule-EngFilTran', 
+//                    'en', 
+//                    'tl', 
+//                    'hello', 
+//                    'kumusta',
+//                ),
             ), 
             
              // $endpoint, $bindingsArray,$sourceLang, $targetLang, $source, $answer
@@ -1022,7 +1022,7 @@ class ServiceList
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '你好',
+                    '您好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TranslationWithParallelText' => array(
@@ -1031,7 +1031,7 @@ class ServiceList
                     'ko', 
                     'zh', 
                     '안녕하세요', 
-                    '你好',
+                    '您好',
                 ),
              //2013/06/18 Nishimura Add
                 'kyoto1.langrid:TwoHopTranslationEn' => array(

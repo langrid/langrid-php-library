@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Created by JetBrains PhpStorm.
  * User: tetsu
@@ -70,12 +70,12 @@ class ParallelTextContentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($readContent->text, 'modified');
     }
 
-    public function testFind_all_by_resource_id() {
+    public function testFindAllByResourceId() {
         $contents = ParallelTextContent::find_all_by_resource_id(1);
         $this->assertTrue(count($contents) == 10);
     }
 
-    public function testDelete_all_by_resource_id_and_language() {
+    public function testDeleteAllByResourceIdAndLanguage() {
         $beforeCount = count(ParallelTextContent::find_all_by_resource_id(5));
         ParallelTextContent::delete_all_by_resource_id_and_language(5, Language::get('ja'));
         $afterCount = count(ParallelTextContent::find_all_by_resource_id(5));
