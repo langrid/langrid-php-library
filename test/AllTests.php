@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Created by JetBrains PhpStorm.
  * User: tetsu
@@ -19,8 +19,8 @@ class AllTests
     {
         $suite = new PHPUnit_Framework_TestSuite('PHPUnit');
 
-        $suite->addTest(LocalServiceAllTests::suite());
-        $suite->addTest(BridgeAllTests::suite());
+//        $suite->addTest(LocalServiceAllTests::suite());
+//        $suite->addTest(BridgeAllTests::suite());
         $suite->addTestSuite("KyotoLangridResourceTest");
         $suite->addTestSuite("KyotoLangridResourceOtherServicesTest");
         
