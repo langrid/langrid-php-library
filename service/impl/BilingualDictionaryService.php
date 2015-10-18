@@ -14,10 +14,11 @@ class BilingualDictionarySOAPServer
         require_once('SOAP/Server.php');
         header("Content-type: text/xml; charset=UTF-8");
         $this->server = new SOAP_Server();
-        $this->server->addObjectMap(
-            new BilingualDictionaryService($dictionaryName)
-            , 'http://bilingualdictionary.ws_1_2.wrapper.langrid.nict.go.jp'
-        );
+        $bs = new BilingualDictionaryService($dictionaryName);
+        $this->server->addObjectMap($bs, 'http://bilingualdictionary.ws_1_2.wrapper.langrid.nict.go.jp');
+        $this->server->addObjectMap($bs, 'servicegrid:servicetype:nict.nlp:BilingualDictionary');
+        $this->server->addObjectMap($bs, 'servicegrid:servicetype:nict.nlp:BilingualDictionaryWithLongestMatchSearch');
+        
         //error_log("DEBUG: the SOAP Server is started.");
         //error_log("DEBUG: recieved SOAP message is " . file_get_contents("php://input"));
     }
