@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Author: Tetsuro Higuchi
  * To change this template use File | Settings | File Templates.
